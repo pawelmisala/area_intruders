@@ -1,7 +1,8 @@
 package area_intruders;
+import area_intruders.view.LaunchFrame;
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("Hello World");
+        new LaunchFrame();
     }
 }
