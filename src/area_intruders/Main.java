@@ -1,8 +1,10 @@
 package area_intruders;
 import area_intruders.view.LaunchFrame;
 
+import javax.swing.*;
+
 public class Main {
     public static void main(String[] args) {
-        new LaunchFrame();
+        SwingUtilities.invokeLater(LaunchFrame::new);
     }
 }
