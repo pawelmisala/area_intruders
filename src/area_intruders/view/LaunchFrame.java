@@ -9,13 +9,16 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 
 public class LaunchFrame extends JFrame {
+    private final ImageIcon banner = new ImageIcon("resources/banner.png");
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
     private final JPanel launchPanel = new LaunchPanel();
-    private JLabel nicknameLabel;
     private JTextField nicknameField;
+    private JComboBox<Difficulty> difficultyComboBox;
+    private static ArrayList<JRadioButton> shipRadioButtons = new ArrayList<>();
     private JButton submitButton;
     private Image frameIcon;
 
@@ -50,19 +53,48 @@ public class LaunchFrame extends JFrame {
         private class NorthPanel extends JPanel {
             NorthPanel() {
                 this.setPreferredSize(new Dimension(WIDTH, 150));
-                this.setBackground(Color.BLACK);
+                JLabel backgroundLabel = new JLabel(banner);
+                this.add(backgroundLabel);
             }
         }
         private class CenterPanel extends JPanel {
             CenterPanel() {
                 this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-                this.setPreferredSize(new Dimension(WIDTH, 450));
-                JPanel nicknamePanel = new JPanel();
-                    nicknameLabel = new JLabel("Nickname:");
+                this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                this.setPreferredSize(new Dimension(WIDTH, 300));
+
+                SettingsPanel nicknamePanel = new SettingsPanel();
+                    nicknamePanel.add(new JLabel("Nickname:"));
                     nicknameField = new JTextField(15);
-                    nicknamePanel.add(nicknameLabel);
                     nicknamePanel.add(nicknameField);
                     this.add(nicknamePanel);
+
+                SettingsPanel difficultyPanel = new SettingsPanel();
+                    difficultyPanel.add(new JLabel("Difficulty:"));
+                    difficultyComboBox = new JComboBox<>(Difficulty.values());
+                    difficultyComboBox.setPreferredSize(new Dimension(80, 20));
+                    difficultyPanel.add(difficultyComboBox);
+                    this.add(difficultyPanel);
+
+                SettingsPanel shipPanel = new SettingsPanel();
+                    shipPanel.add(new JLabel("Ship:"));
+                    ShipOptionPanel redShipOptionPanel = new ShipOptionPanel("resources/ship1.png");
+                        redShipOptionPanel.getRadioButton().setSelected(true);
+                    ShipOptionPanel greenShipOptionPanel = new ShipOptionPanel("resources/ship2.png");
+                    ShipOptionPanel blueShipOptionPanel = new ShipOptionPanel("resources/ship3.png");
+                    shipPanel.add(redShipOptionPanel);
+                    shipPanel.add(greenShipOptionPanel);
+                    shipPanel.add(blueShipOptionPanel);
+                    shipRadioButtons.add(redShipOptionPanel.getRadioButton());
+                    shipRadioButtons.add(greenShipOptionPanel.getRadioButton());
+                    shipRadioButtons.add(blueShipOptionPanel.getRadioButton());
+
+                    ButtonGroup shipButtonGroup = new ButtonGroup(); //BUTTON GROUP PREVENTS FROM CHOOSING MULTIPLE SHIP ICONS
+                        shipButtonGroup.add(redShipOptionPanel.getRadioButton());
+                        shipButtonGroup.add(greenShipOptionPanel.getRadioButton());
+                        shipButtonGroup.add(blueShipOptionPanel.getRadioButton());
+
+                    this.add(shipPanel);
             }
         }
         private class SouthPanel extends JPanel {
@@ -80,6 +112,12 @@ public class LaunchFrame extends JFrame {
 
     public String getNickname() {
         return nicknameField.getText();
+    }
+    public Difficulty getDifficulty() {
+        return (Difficulty) difficultyComboBox.getSelectedItem();
+    }
+    public ArrayList<JRadioButton> getShipRadioButtons() {
+        return shipRadioButtons;
     }
 
     public void addButtonListener(ActionListener listener) {

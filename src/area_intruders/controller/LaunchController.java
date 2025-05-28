@@ -1,5 +1,6 @@
 package area_intruders.controller;
 
+import area_intruders.model.Difficulty;
 import area_intruders.model.LaunchModel;
 import area_intruders.view.LaunchFrame;
 
@@ -21,11 +22,27 @@ public class LaunchController {
                 }
                 else {
                     String nickname = launchFrame.getNickname(); //POBIERAMY WARTOSCI Z VIEW PO CZYM PRZYPISUJEMY JE ORAZ
-                    LaunchModel model = new LaunchModel(nickname); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
+                    Difficulty difficulty = launchFrame.getDifficulty();
+                    Icon shipIcon = getShipIcon();
+
+                    LaunchModel model = new LaunchModel(nickname, difficulty, shipIcon); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
                     launchFrame.close();
                 }
             }
         });
+    }
+
+    private Icon getShipIcon() {
+        JRadioButton selectedShip = launchFrame.getShipRadioButtons().stream()
+                .filter(e -> e.isSelected())
+                .findFirst()
+                .orElse(null);
+
+        if (selectedShip != null) {
+            return selectedShip.getIcon();
+        }
+
+        return launchFrame.getShipRadioButtons().getFirst().getIcon();
     }
 
 }
