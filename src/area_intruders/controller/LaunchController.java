@@ -8,7 +8,6 @@ import area_intruders.view.LaunchFrame;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -38,11 +37,64 @@ public class LaunchController {
             }
         });
 
+        launchFrame.addDifficultyComboBoxListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Difficulty currentDifficulty = launchFrame.getDifficulty();
+                switch (currentDifficulty) {
+                    case EASY:
+                        //ENEMIES IN A ROW
+                        launchFrame.getEnemiesInARowSpinner().setValue(3);
+                        launchFrame.getEnemiesInARowSpinner().setEnabled(false);
+                        //ENEMIES FALLING SPEED
+                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (3)");
+                        launchFrame.getEnemiesFallingSpeedSlider().setValue(3);
+                        launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
+                        //INVERTED MOVEMENT
+                        launchFrame.getInvertedMovementCheckBox().setSelected(false);
+                        launchFrame.getInvertedMovementCheckBox().setEnabled(false);
+
+                        break;
+                    case MEDIUM:
+                        //ENEMIES IN A ROW
+                        launchFrame.getEnemiesInARowSpinner().setValue(5);
+                        launchFrame.getEnemiesInARowSpinner().setEnabled(false);
+                        //ENEMIES FALLING SPEED
+                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (2)");
+                        launchFrame.getEnemiesFallingSpeedSlider().setValue(2);
+                        launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
+                        //INVERTED MOVEMENT
+                        launchFrame.getInvertedMovementCheckBox().setSelected(false);
+                        launchFrame.getInvertedMovementCheckBox().setEnabled(false);
+                        break;
+                    case HARD:
+                        //ENEMIES IN A ROW
+                        launchFrame.getEnemiesInARowSpinner().setValue(7);
+                        launchFrame.getEnemiesInARowSpinner().setEnabled(false);
+                        //ENEMIES FALLING SPEED
+                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (1)");
+                        launchFrame.getEnemiesFallingSpeedSlider().setValue(1);
+                        launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
+                        //INVERTED MOVEMENT
+                        launchFrame.getInvertedMovementCheckBox().setSelected(false);
+                        launchFrame.getInvertedMovementCheckBox().setEnabled(false);
+                        break;
+                    case CUSTOM:
+                        launchFrame.getEnemiesInARowSpinner().setEnabled(true);
+                        launchFrame.getEnemiesFallingSpeedSlider().setEnabled(true);
+                        launchFrame.getInvertedMovementCheckBox().setEnabled(true);
+
+                    default:
+                        break;
+                };
+            }
+        });
+
         launchFrame.addEnemiesFallingSpeedSliderChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
                 int value = launchFrame.getEnemiesFallingSpeedSlider().getValue();
-                launchFrame.setEnemiesInARowSettingLabel("Enemies falling speed: (" + value + ")");
+                launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (" + value + ")");
             }
         });
     }

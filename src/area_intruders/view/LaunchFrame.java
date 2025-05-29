@@ -20,8 +20,8 @@ public class LaunchFrame extends JFrame {
     private JTextField nicknameField;
     private JComboBox<Difficulty> difficultyComboBox;
     private static ArrayList<CustomRadioButton> shipRadioButtons = new ArrayList<>();
-    private JLabel enemiesInARowSettingLabel;
     private JSpinner enemiesInARowSpinner;
+    private JLabel enemiesFallingSpeedLabel;
     private JSlider enemiesFallingSpeedSlider;
     private JCheckBox invertedMovementCheckBox;
     private JButton submitButton;
@@ -67,6 +67,7 @@ public class LaunchFrame extends JFrame {
                 this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
                 this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 this.setPreferredSize(new Dimension(WIDTH, 300));
+                this.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 
                 SettingsPanel nicknamePanel = new SettingsPanel();
                     nicknamePanel.add(new JLabel("Nickname:"));
@@ -78,6 +79,7 @@ public class LaunchFrame extends JFrame {
                     difficultyPanel.add(new JLabel("Difficulty:"));
                     difficultyComboBox = new JComboBox<>(Difficulty.values());
                     difficultyComboBox.setPreferredSize(new Dimension(80, 20));
+                    difficultyComboBox.setSelectedItem(Difficulty.CUSTOM);
                     difficultyPanel.add(difficultyComboBox);
                     this.add(difficultyPanel);
 
@@ -90,8 +92,8 @@ public class LaunchFrame extends JFrame {
                     this.add(enemiesInARowSettingPanel);
 
                 SettingsPanel enemiesFallingSpeedSettingPanel = new SettingsPanel();
-                    enemiesInARowSettingLabel = new JLabel("Enemies falling speed: (3)");
-                    enemiesFallingSpeedSettingPanel.add(enemiesInARowSettingLabel);
+                    enemiesFallingSpeedLabel = new JLabel("Enemies falling speed: (3)");
+                    enemiesFallingSpeedSettingPanel.add(enemiesFallingSpeedLabel);
                     enemiesFallingSpeedSlider = new JSlider(SwingConstants.HORIZONTAL, 1 , 5 , 3);
                         enemiesFallingSpeedSlider.setPreferredSize(new Dimension(100, 40));
                         enemiesFallingSpeedSlider.setMajorTickSpacing(1);
@@ -140,6 +142,7 @@ public class LaunchFrame extends JFrame {
         }
     }
 
+    //GETTERS
     public String getNickname() {
         return nicknameField.getText();
     }
@@ -159,15 +162,20 @@ public class LaunchFrame extends JFrame {
         return invertedMovementCheckBox;
     }
 
-    public void setEnemiesInARowSettingLabel(String string) {
-        enemiesInARowSettingLabel.setText(string);
+    //SETTERS
+    public void setEnemiesFallingSpeedLabel(String string) {
+        enemiesFallingSpeedLabel.setText(string);
     }
 
-    public void addSubmitButtonListener(ActionListener listener) {
-        submitButton.addActionListener(listener);
+    //LISTENER ADDERS
+    public void addDifficultyComboBoxListener(ActionListener listener) {
+        difficultyComboBox.addActionListener(listener);
     }
     public void addEnemiesFallingSpeedSliderChangeListener(ChangeListener listener){
         enemiesFallingSpeedSlider.addChangeListener(listener);
+    }
+    public void addSubmitButtonListener(ActionListener listener) {
+        submitButton.addActionListener(listener);
     }
 
     public void close(){
