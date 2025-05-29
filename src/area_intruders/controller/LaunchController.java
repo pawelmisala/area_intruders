@@ -2,9 +2,13 @@ package area_intruders.controller;
 
 import area_intruders.model.Difficulty;
 import area_intruders.model.LaunchModel;
+import area_intruders.view.CustomRadioButton;
 import area_intruders.view.LaunchFrame;
 
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -14,7 +18,7 @@ public class LaunchController {
     public LaunchController(LaunchFrame launchFrame) {
         this.launchFrame = launchFrame;
 
-        launchFrame.addButtonListener(new ActionListener() {
+        launchFrame.addSubmitButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (launchFrame.getNickname().isEmpty()){
@@ -23,26 +27,35 @@ public class LaunchController {
                 else {
                     String nickname = launchFrame.getNickname(); //POBIERAMY WARTOSCI Z VIEW PO CZYM PRZYPISUJEMY JE ORAZ
                     Difficulty difficulty = launchFrame.getDifficulty();
-                    Icon shipIcon = getShipIcon();
+                    String shipIconFilePath = getShipIconFilePath();
+                    int enemiesInARow = (int) launchFrame.getEnemiesInARowSpinner().getValue();
+                    int enemiesFallingSpeed = launchFrame.getEnemiesFallingSpeedSlider().getValue();
 
-                    LaunchModel model = new LaunchModel(nickname, difficulty, shipIcon); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
+                    LaunchModel model = new LaunchModel(nickname, difficulty, shipIconFilePath, enemiesInARow, enemiesFallingSpeed); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
                     launchFrame.close();
                 }
             }
         });
+
+        launchFrame.addEnemiesFallingSpeedSliderChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int value = launchFrame.getEnemiesFallingSpeedSlider().getValue();
+                launchFrame.setEnemiesInARowSettingLabel("Enemies falling speed: (" + value + ")");
+            }
+        });
     }
 
-    private Icon getShipIcon() {
-        JRadioButton selectedShip = launchFrame.getShipRadioButtons().stream()
+    private String getShipIconFilePath() {
+        CustomRadioButton selectedShipIconRadioButton = launchFrame.getShipRadioButtons().stream()
                 .filter(e -> e.isSelected())
                 .findFirst()
                 .orElse(null);
 
-        if (selectedShip != null) {
-            return selectedShip.getIcon();
+        if (selectedShipIconRadioButton == null) {
+            return launchFrame.getShipRadioButtons().getFirst().getShipIconFilePath();
         }
 
-        return launchFrame.getShipRadioButtons().getFirst().getIcon();
+        return selectedShipIconRadioButton.getShipIconFilePath();
     }
-
 }

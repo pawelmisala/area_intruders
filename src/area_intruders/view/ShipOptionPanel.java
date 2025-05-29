@@ -4,13 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 
 public class ShipOptionPanel extends JPanel {
-    private JRadioButton radioButton;
+    private CustomRadioButton radioButton;
     private JLabel shipIconLabel;
 
     public ShipOptionPanel(String shipFilename) {
         this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        this.radioButton = new JRadioButton();
+        this.radioButton = new CustomRadioButton(shipFilename);
         radioButton.setAlignmentX(Component.CENTER_ALIGNMENT);
         ImageIcon shipIcon = new ImageIcon(new ImageIcon(shipFilename).getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH));
         shipIconLabel = new JLabel(shipIcon);
@@ -20,8 +20,7 @@ public class ShipOptionPanel extends JPanel {
         this.add(radioButton);
     }
 
-
-    public JRadioButton getRadioButton() {
+    public CustomRadioButton getRadioButton() {
         return this.radioButton;
     }
 }

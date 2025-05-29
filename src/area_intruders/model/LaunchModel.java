@@ -1,15 +1,22 @@
 package area_intruders.model;
 
-import javax.swing.*;
-
 public class LaunchModel {
     private String nickname;
     private Difficulty difficulty;
-    private Icon shipIcon;
+    private String shipIconFilePath;
+    private int enemiesInARow;
+    private int enemiesFallingSpeed;
 
-    public LaunchModel(String nickname, Difficulty difficulty, Icon shipIcon) {
+    public LaunchModel(String nickname, Difficulty difficulty, String shipIconFilePath, int enemiesInARow, int enemiesFallingSpeed) {
         this.nickname = nickname;
         this.difficulty = difficulty;
-        this.shipIcon = shipIcon;
+        this.shipIconFilePath = shipIconFilePath;
+        this.enemiesInARow = enemiesInARow;
+        this.enemiesFallingSpeed = enemiesFallingSpeed;
+    }
+
+    @Override
+    public String toString() {
+        return nickname + "\n" + difficulty + "\n" + shipIconFilePath + "\n" + enemiesInARow + "\n" + enemiesFallingSpeed;
     }
 }

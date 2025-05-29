@@ -5,6 +5,7 @@ import area_intruders.model.Difficulty;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import javax.swing.event.ChangeListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -18,7 +19,10 @@ public class LaunchFrame extends JFrame {
     private final JPanel launchPanel = new LaunchPanel();
     private JTextField nicknameField;
     private JComboBox<Difficulty> difficultyComboBox;
-    private static ArrayList<JRadioButton> shipRadioButtons = new ArrayList<>();
+    private static ArrayList<CustomRadioButton> shipRadioButtons = new ArrayList<>();
+    private JLabel enemiesInARowSettingLabel;
+    private JSpinner enemiesInARowSpinner;
+    private JSlider enemiesFallingSpeedSlider;
     private JButton submitButton;
     private Image frameIcon;
 
@@ -76,25 +80,51 @@ public class LaunchFrame extends JFrame {
                     difficultyPanel.add(difficultyComboBox);
                     this.add(difficultyPanel);
 
+                SettingsPanel enemiesInARowSettingPanel = new SettingsPanel();
+                    enemiesInARowSettingPanel.add(new JLabel("Enemies in a row:"));
+                    SpinnerModel model = new SpinnerNumberModel(1, 1, 9, 1);
+                    enemiesInARowSpinner = new JSpinner(model);
+                    enemiesInARowSpinner.setPreferredSize(new Dimension(40, 20));
+                    enemiesInARowSettingPanel.add(enemiesInARowSpinner);
+                    this.add(enemiesInARowSettingPanel);
+
+                SettingsPanel enemiesFallingSpeedSettingPanel = new SettingsPanel();
+                    enemiesInARowSettingLabel = new JLabel("Enemies falling speed: (3)");
+                    enemiesFallingSpeedSettingPanel.add(enemiesInARowSettingLabel);
+                    enemiesFallingSpeedSlider = new JSlider(SwingConstants.HORIZONTAL, 1 , 5 , 3);
+                        enemiesFallingSpeedSlider.setPreferredSize(new Dimension(100, 40));
+                        enemiesFallingSpeedSlider.setMajorTickSpacing(1);
+                        enemiesFallingSpeedSlider.setMinorTickSpacing(1);
+                        enemiesFallingSpeedSlider.setPaintTicks(true);
+                    enemiesFallingSpeedSettingPanel.add(enemiesFallingSpeedSlider);
+                    this.add(enemiesFallingSpeedSettingPanel);
+
+                SettingsPanel invertedMovementSettingPanel = new SettingsPanel();
+                    this.add(invertedMovementSettingPanel);
+
+
+
+
+
                 SettingsPanel shipPanel = new SettingsPanel();
-                    shipPanel.add(new JLabel("Ship:"));
-                    ShipOptionPanel redShipOptionPanel = new ShipOptionPanel("resources/ship1.png");
-                        redShipOptionPanel.getRadioButton().setSelected(true);
-                    ShipOptionPanel greenShipOptionPanel = new ShipOptionPanel("resources/ship2.png");
-                    ShipOptionPanel blueShipOptionPanel = new ShipOptionPanel("resources/ship3.png");
-                    shipPanel.add(redShipOptionPanel);
-                    shipPanel.add(greenShipOptionPanel);
-                    shipPanel.add(blueShipOptionPanel);
-                    shipRadioButtons.add(redShipOptionPanel.getRadioButton());
-                    shipRadioButtons.add(greenShipOptionPanel.getRadioButton());
-                    shipRadioButtons.add(blueShipOptionPanel.getRadioButton());
+                shipPanel.add(new JLabel("Ship:"));
+                ShipOptionPanel redShipOptionPanel = new ShipOptionPanel("resources/ship1.png");
+                redShipOptionPanel.getRadioButton().setSelected(true);
+                ShipOptionPanel greenShipOptionPanel = new ShipOptionPanel("resources/ship2.png");
+                ShipOptionPanel blueShipOptionPanel = new ShipOptionPanel("resources/ship3.png");
+                shipPanel.add(redShipOptionPanel);
+                shipPanel.add(greenShipOptionPanel);
+                shipPanel.add(blueShipOptionPanel);
+                shipRadioButtons.add(redShipOptionPanel.getRadioButton());
+                shipRadioButtons.add(greenShipOptionPanel.getRadioButton());
+                shipRadioButtons.add(blueShipOptionPanel.getRadioButton());
 
-                    ButtonGroup shipButtonGroup = new ButtonGroup(); //BUTTON GROUP PREVENTS FROM CHOOSING MULTIPLE SHIP ICONS
-                        shipButtonGroup.add(redShipOptionPanel.getRadioButton());
-                        shipButtonGroup.add(greenShipOptionPanel.getRadioButton());
-                        shipButtonGroup.add(blueShipOptionPanel.getRadioButton());
+                ButtonGroup shipButtonGroup = new ButtonGroup(); //BUTTON GROUP PREVENTS FROM CHOOSING MULTIPLE SHIP ICONS
+                shipButtonGroup.add(redShipOptionPanel.getRadioButton());
+                shipButtonGroup.add(greenShipOptionPanel.getRadioButton());
+                shipButtonGroup.add(blueShipOptionPanel.getRadioButton());
 
-                    this.add(shipPanel);
+                this.add(shipPanel);
             }
         }
         private class SouthPanel extends JPanel {
@@ -116,12 +146,25 @@ public class LaunchFrame extends JFrame {
     public Difficulty getDifficulty() {
         return (Difficulty) difficultyComboBox.getSelectedItem();
     }
-    public ArrayList<JRadioButton> getShipRadioButtons() {
+    public ArrayList<CustomRadioButton> getShipRadioButtons() {
         return shipRadioButtons;
     }
+    public JSpinner getEnemiesInARowSpinner(){
+        return enemiesInARowSpinner;
+    }
+    public JSlider getEnemiesFallingSpeedSlider() {
+        return enemiesFallingSpeedSlider;
+    }
 
-    public void addButtonListener(ActionListener listener) {
+    public void setEnemiesInARowSettingLabel(String string) {
+        enemiesInARowSettingLabel.setText(string);
+    }
+
+    public void addSubmitButtonListener(ActionListener listener) {
         submitButton.addActionListener(listener);
+    }
+    public void addEnemiesFallingSpeedSliderChangeListener(ChangeListener listener){
+        enemiesFallingSpeedSlider.addChangeListener(listener);
     }
 
     public void close(){
