@@ -6,17 +6,14 @@ public class LaunchModel {
     private String shipIconFilePath;
     private int enemiesInARow;
     private int enemiesFallingSpeed;
+    private boolean invertedMovement;
 
-    public LaunchModel(String nickname, Difficulty difficulty, String shipIconFilePath, int enemiesInARow, int enemiesFallingSpeed) {
+    public LaunchModel(String nickname, Difficulty difficulty, String shipIconFilePath, int enemiesInARow, int enemiesFallingSpeed, boolean invertedMovement) {
         this.nickname = nickname;
         this.difficulty = difficulty;
         this.shipIconFilePath = shipIconFilePath;
         this.enemiesInARow = enemiesInARow;
         this.enemiesFallingSpeed = enemiesFallingSpeed;
-    }
-
-    @Override
-    public String toString() {
-        return nickname + "\n" + difficulty + "\n" + shipIconFilePath + "\n" + enemiesInARow + "\n" + enemiesFallingSpeed;
+        this.invertedMovement = invertedMovement;
     }
 }

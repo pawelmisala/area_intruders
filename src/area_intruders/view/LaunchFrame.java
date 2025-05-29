@@ -23,6 +23,7 @@ public class LaunchFrame extends JFrame {
     private JLabel enemiesInARowSettingLabel;
     private JSpinner enemiesInARowSpinner;
     private JSlider enemiesFallingSpeedSlider;
+    private JCheckBox invertedMovementCheckBox;
     private JButton submitButton;
     private Image frameIcon;
 
@@ -100,11 +101,10 @@ public class LaunchFrame extends JFrame {
                     this.add(enemiesFallingSpeedSettingPanel);
 
                 SettingsPanel invertedMovementSettingPanel = new SettingsPanel();
+                    invertedMovementSettingPanel.add(new JLabel("Inverted Movement:"));
+                    invertedMovementCheckBox = new JCheckBox();
+                    invertedMovementSettingPanel.add(invertedMovementCheckBox);
                     this.add(invertedMovementSettingPanel);
-
-
-
-
 
                 SettingsPanel shipPanel = new SettingsPanel();
                 shipPanel.add(new JLabel("Ship:"));
@@ -154,6 +154,9 @@ public class LaunchFrame extends JFrame {
     }
     public JSlider getEnemiesFallingSpeedSlider() {
         return enemiesFallingSpeedSlider;
+    }
+    public JCheckBox getInvertedMovementCheckBox() {
+        return invertedMovementCheckBox;
     }
 
     public void setEnemiesInARowSettingLabel(String string) {

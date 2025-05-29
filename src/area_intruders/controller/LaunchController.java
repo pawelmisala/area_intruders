@@ -30,8 +30,9 @@ public class LaunchController {
                     String shipIconFilePath = getShipIconFilePath();
                     int enemiesInARow = (int) launchFrame.getEnemiesInARowSpinner().getValue();
                     int enemiesFallingSpeed = launchFrame.getEnemiesFallingSpeedSlider().getValue();
+                    boolean invertedMovement = launchFrame.getInvertedMovementCheckBox().isSelected();
 
-                    LaunchModel model = new LaunchModel(nickname, difficulty, shipIconFilePath, enemiesInARow, enemiesFallingSpeed); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
+                    LaunchModel model = new LaunchModel(nickname, difficulty, shipIconFilePath, enemiesInARow, enemiesFallingSpeed, invertedMovement); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
                     launchFrame.close();
                 }
             }
