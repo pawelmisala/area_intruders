@@ -3,6 +3,7 @@ package area_intruders.controller;
 import area_intruders.model.Difficulty;
 import area_intruders.model.LaunchModel;
 import area_intruders.view.CustomRadioButton;
+import area_intruders.view.GameFrame;
 import area_intruders.view.LaunchFrame;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.awt.event.ActionListener;
 
 public class LaunchController {
     private LaunchFrame launchFrame;
+    private GameFrame gameFrame;
 
     public LaunchController(LaunchFrame launchFrame) {
         this.launchFrame = launchFrame;
@@ -32,7 +34,9 @@ public class LaunchController {
                     boolean invertedMovement = launchFrame.getInvertedMovementCheckBox().isSelected();
 
                     LaunchModel model = new LaunchModel(nickname, difficulty, shipIconFilePath, enemiesInARow, enemiesFallingSpeed, invertedMovement); //TWORZYMY OBIEKT MODEL KTORY PRZECHOWUJE DANE NIE MAJAC POLACZENIA Z GUI
+                    launchFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     launchFrame.close();
+                    GameFrame gameFrame = new GameFrame(model);
                 }
             }
         });
@@ -76,7 +80,7 @@ public class LaunchController {
                         launchFrame.getEnemiesFallingSpeedSlider().setValue(1);
                         launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
                         //INVERTED MOVEMENT
-                        launchFrame.getInvertedMovementCheckBox().setSelected(false);
+                        launchFrame.getInvertedMovementCheckBox().setSelected(true);
                         launchFrame.getInvertedMovementCheckBox().setEnabled(false);
                         break;
                     case CUSTOM:

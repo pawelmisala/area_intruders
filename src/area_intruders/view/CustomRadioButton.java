@@ -1,7 +1,6 @@
 package area_intruders.view;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class CustomRadioButton extends JRadioButton {
     private String shipIconFilePath;

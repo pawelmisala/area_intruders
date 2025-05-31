@@ -16,4 +16,8 @@ public class LaunchModel {
         this.enemiesFallingSpeed = enemiesFallingSpeed;
         this.invertedMovement = invertedMovement;
     }
+
+    public String getNickname() {
+        return nickname;
+    }
 }

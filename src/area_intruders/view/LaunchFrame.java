@@ -16,7 +16,7 @@ public class LaunchFrame extends JFrame {
     private final ImageIcon banner = new ImageIcon("resources/banner.png");
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    private final JPanel launchPanel = new LaunchPanel();
+    private final JPanel mainPanel = new MainPanel();
     private JTextField nicknameField;
     private JComboBox<Difficulty> difficultyComboBox;
     private static ArrayList<CustomRadioButton> shipRadioButtons = new ArrayList<>();
@@ -41,14 +41,14 @@ public class LaunchFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.add(launchPanel);
+        this.add(mainPanel);
         this.setIconImage(frameIcon);
         this.setVisible(true);
         LaunchController controller = new LaunchController(this);
     }
 
-    private class LaunchPanel extends JPanel {
-        public LaunchPanel() {
+    private class MainPanel extends JPanel {
+        public MainPanel() {
             setLayout(new BorderLayout());
             this.add(new NorthPanel(), BorderLayout.NORTH);
             this.add(new CenterPanel(), BorderLayout.CENTER);
@@ -78,7 +78,7 @@ public class LaunchFrame extends JFrame {
                 SettingsPanel difficultyPanel = new SettingsPanel();
                     difficultyPanel.add(new JLabel("Difficulty:"));
                     difficultyComboBox = new JComboBox<>(Difficulty.values());
-                    difficultyComboBox.setPreferredSize(new Dimension(80, 20));
+                    difficultyComboBox.setPreferredSize(new Dimension(120, 20));
                     difficultyComboBox.setSelectedItem(Difficulty.CUSTOM);
                     difficultyPanel.add(difficultyComboBox);
                     this.add(difficultyPanel);
