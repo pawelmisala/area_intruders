@@ -16,7 +16,6 @@ public class LaunchFrame extends JFrame {
     private final ImageIcon banner = new ImageIcon("resources/banner.png");
     private final int WIDTH = 800;
     private final int HEIGHT = 600;
-    private final JPanel mainPanel = new MainPanel();
     private JTextField nicknameField;
     private JComboBox<Difficulty> difficultyComboBox;
     private static ArrayList<CustomRadioButton> shipRadioButtons = new ArrayList<>();
@@ -41,7 +40,7 @@ public class LaunchFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setLocationRelativeTo(null);
         this.setResizable(false);
-        this.add(mainPanel);
+        this.add(new MainPanel());
         this.setIconImage(frameIcon);
         this.setVisible(true);
         LaunchController controller = new LaunchController(this);
@@ -57,7 +56,8 @@ public class LaunchFrame extends JFrame {
 
         private class NorthPanel extends JPanel {
             NorthPanel() {
-                this.setPreferredSize(new Dimension(WIDTH, 150));
+                this.setPreferredSize(new Dimension(getWIDTH(), 150));
+                this.setBackground(Color.BLACK);
                 JLabel backgroundLabel = new JLabel(banner);
                 this.add(backgroundLabel);
             }
@@ -66,7 +66,7 @@ public class LaunchFrame extends JFrame {
             CenterPanel() {
                 this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
                 this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                this.setPreferredSize(new Dimension(WIDTH, 300));
+                this.setPreferredSize(new Dimension(getWIDTH(), 300));
                 this.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
 
                 SettingsPanel nicknamePanel = new SettingsPanel();
@@ -132,7 +132,7 @@ public class LaunchFrame extends JFrame {
         private class SouthPanel extends JPanel {
             SouthPanel() {
                 this.setLayout(new FlowLayout(FlowLayout.CENTER));
-                this.setPreferredSize(new Dimension(WIDTH, 50));
+                this.setPreferredSize(new Dimension(getWIDTH(), 50));
                 this.setBackground(Color.BLACK);
 
                 submitButton = new JButton("START");
@@ -143,6 +143,12 @@ public class LaunchFrame extends JFrame {
     }
 
     //GETTERS
+    public int getWIDTH(){
+        return WIDTH;
+    }
+    public int getHEIGHT(){
+        return HEIGHT;
+    }
     public String getNickname() {
         return nicknameField.getText();
     }
