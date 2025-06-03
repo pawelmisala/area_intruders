@@ -25,6 +25,7 @@ public class LaunchFrame extends JFrame {
     private JCheckBox invertedMovementCheckBox;
     private JButton submitButton;
     private Image frameIcon;
+    private LaunchController launchController;
 
     {
         try {
@@ -43,7 +44,7 @@ public class LaunchFrame extends JFrame {
         this.add(new MainPanel());
         this.setIconImage(frameIcon);
         this.setVisible(true);
-        LaunchController controller = new LaunchController(this);
+        this.launchController = new LaunchController(this);
     }
 
     private class MainPanel extends JPanel {

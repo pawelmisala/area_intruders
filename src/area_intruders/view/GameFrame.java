@@ -16,8 +16,12 @@ public class GameFrame extends JFrame {
     private final JMenuBar menuBar;
     private final JMenu helpMenu;
     private final JMenu scoreboardMenu;
+    private MainPanel mainPanel;
+    private GameplayPanel gameplayPanel;
+    private CardLayout cardLayout;
     private JButton startButton;
     private Image frameIcon;
+    private GameController gameController;
 
     {
         try {
@@ -32,11 +36,12 @@ public class GameFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
-        this.add(new MainPanel());
         this.setResizable(false);
         this.setIconImage(frameIcon);
+        this.add(this.mainPanel = new MainPanel());
         this.setVisible(true);
-        GameController gameController = new GameController(this);
+        this.gameController = new GameController(this, this.gameplayPanel);
+
         //MENUBAR
             this.menuBar = new JMenuBar();
             this.helpMenu = new JMenu("Help");
@@ -47,11 +52,12 @@ public class GameFrame extends JFrame {
     }
 
     private class MainPanel extends JPanel {
-        CardLayout cardLayout = new CardLayout();
 
         public MainPanel() {
+            cardLayout = new CardLayout();
             this.setLayout(cardLayout);
-            this.add(new StartingScreenPanel());
+            this.add(new StartingScreenPanel(), "STARTING_SCREEN");
+            this.add(new GamePanel(), "GAME_PANEL");
             cardLayout.show(this, "STARTING_SCREEN");
         }
     }
@@ -77,8 +83,15 @@ public class GameFrame extends JFrame {
                 this.add(buttonPanel, BorderLayout.CENTER);
 
         }
+    }
 
-
+    private class GamePanel extends JPanel {
+        public GamePanel() {
+            this.setLayout(new BorderLayout());
+            this.setPreferredSize(new Dimension(getWIDTH(), getHEIGHT()));
+            this.setBackground(Color.RED);
+            this.add(gameplayPanel = new GameplayPanel(), BorderLayout.CENTER);
+        }
     }
 
     public int getWIDTH(){
@@ -86,6 +99,15 @@ public class GameFrame extends JFrame {
     }
     public int getHEIGHT(){
         return HEIGHT;
+    }
+    public MainPanel getMainPanel() {
+        return mainPanel;
+    }
+    public CardLayout getCardLayout() {
+        return cardLayout;
+    }
+    public GameplayPanel getGameplayPanel() {
+        return gameplayPanel;
     }
 
     public void addStartButtonListener(ActionListener actionListener) {

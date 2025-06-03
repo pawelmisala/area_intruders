@@ -8,6 +8,15 @@ public class UserSettings {
     private static int enemiesFallingSpeed;
     private static boolean invertedMovement;
 
+    public static void initializeSettings(String n, Difficulty d, String iconPath, int eInARow, int eFallingSpeed, boolean iMovement) {
+        nickname = n;
+        difficulty = d;
+        shipIconFilePath = iconPath;
+        enemiesInARow = eInARow;
+        enemiesFallingSpeed = eFallingSpeed;
+        invertedMovement = iMovement;
+    }
+
     //GETTERS
     public static String getNickname() {
         return nickname;
@@ -26,26 +35,6 @@ public class UserSettings {
     }
     public static boolean getInvertedMovement() {
         return invertedMovement;
-    }
-
-    //SETTERS
-    protected static void setNickname(String nickname) {
-        UserSettings.nickname = nickname;
-    }
-    protected static void setDifficulty(Difficulty difficulty) {
-        UserSettings.difficulty = difficulty;
-    }
-    protected static void setShipIconFilePath(String shipIconFilePath) {
-        UserSettings.shipIconFilePath = shipIconFilePath;
-    }
-    protected static void setEnemiesInARow(int enemiesInARow) {
-        UserSettings.enemiesInARow = enemiesInARow;
-    }
-    protected static void setEnemiesFallingSpeed(int enemiesFallingSpeed) {
-        UserSettings.enemiesFallingSpeed = enemiesFallingSpeed;
-    }
-    protected static void setInvertedMovement(boolean invertedMovement) {
-        UserSettings.invertedMovement = invertedMovement;
     }
 }
 

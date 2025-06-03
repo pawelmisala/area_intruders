@@ -25,12 +25,14 @@ public class LaunchController extends UserSettings {
                     JOptionPane.showMessageDialog(launchFrame, "Please, enter your nickname!");
                 }
                 else {
-                    UserSettings.setNickname(launchFrame.getNickname());
-                    UserSettings.setDifficulty(launchFrame.getDifficulty());
-                    UserSettings.setShipIconFilePath(getShipIconFilePathFromLaunchFrame());
-                    UserSettings.setEnemiesInARow((Integer) launchFrame.getEnemiesInARowSpinner().getValue());
-                    UserSettings.setEnemiesFallingSpeed(launchFrame.getEnemiesFallingSpeedSlider().getValue());
-                    UserSettings.setInvertedMovement(launchFrame.getInvertedMovementCheckBox().isSelected());
+                    UserSettings.initializeSettings(
+                            launchFrame.getNickname(),
+                            launchFrame.getDifficulty(),
+                            getShipIconFilePathFromLaunchFrame(),
+                            (Integer) launchFrame.getEnemiesInARowSpinner().getValue(),
+                            launchFrame.getEnemiesFallingSpeedSlider().getValue(),
+                            launchFrame.getInvertedMovementCheckBox().isSelected()
+                    );
 
                     launchFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     launchFrame.close();
