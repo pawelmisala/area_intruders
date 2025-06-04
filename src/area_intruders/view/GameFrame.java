@@ -11,13 +11,14 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
-    private final int WIDTH = 800;
-    private final int HEIGHT = 600;
+    private final int WIDTH = 512;
+    private final int HEIGHT = 612;
     private final JMenuBar menuBar;
     private final JMenu helpMenu;
     private final JMenu scoreboardMenu;
     private MainPanel mainPanel;
     private GameplayPanel gameplayPanel;
+    private ControllsPanel controllsPanel;
     private CardLayout cardLayout;
     private JButton startButton;
     private Image frameIcon;
@@ -40,7 +41,7 @@ public class GameFrame extends JFrame {
         this.setIconImage(frameIcon);
         this.add(this.mainPanel = new MainPanel());
         this.setVisible(true);
-        this.gameController = new GameController(this, this.gameplayPanel);
+        this.gameController = new GameController(this);
 
         //MENUBAR
             this.menuBar = new JMenuBar();
@@ -87,10 +88,11 @@ public class GameFrame extends JFrame {
 
     private class GamePanel extends JPanel {
         public GamePanel() {
-            this.setLayout(new BorderLayout());
+//            this.setLayout(new BorderLayout());
             this.setPreferredSize(new Dimension(getWIDTH(), getHEIGHT()));
-            this.setBackground(Color.RED);
+            this.setBackground(Color.BLACK);
             this.add(gameplayPanel = new GameplayPanel(), BorderLayout.CENTER);
+            this.add(controllsPanel = new ControllsPanel(), BorderLayout.SOUTH);
         }
     }
 

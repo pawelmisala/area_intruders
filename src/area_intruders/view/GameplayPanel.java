@@ -5,6 +5,7 @@ import area_intruders.model.GameBoardValues;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.KeyAdapter;
 
 public class GameplayPanel extends JPanel {
     private final int tileSize = GameBoardValues.getTileSize();
@@ -17,12 +18,18 @@ public class GameplayPanel extends JPanel {
     public GameplayPanel() {
         this.setPreferredSize(new Dimension(gameBoardWidth, gameBoardHeight));
         this.setBackground(Color.BLACK);
-        this.gameController = null; //TUTAJ JAKOS PRZYPISAC
+        this.setFocusable(true);
+        this.requestFocusInWindow();
     }
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         gameController.drawShip(g);
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
+        this.addKeyListener(gameController);
     }
 }
 

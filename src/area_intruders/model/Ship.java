@@ -3,6 +3,8 @@ package area_intruders.model;
 import javax.swing.*;
 import java.awt.*;
 
+import static java.lang.Thread.sleep;
+
 public class Ship {
     private int shipX;
     private int shipY;
@@ -32,5 +34,13 @@ public class Ship {
     }
     public int getShipHeight() {
         return shipHeight;
+    }
+
+    public void moveLeft(){
+        this.shipX = this.shipX - GameBoardValues.getTileSize();
+    }
+
+    public void moveRight(){
+        this.shipX = this.shipX + GameBoardValues.getTileSize();
     }
 }

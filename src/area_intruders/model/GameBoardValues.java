@@ -2,8 +2,8 @@ package area_intruders.model;
 
 public class GameBoardValues {
     private static final int tileSize = 32;
-    private static final int rows = 16;
-    private static final int cols = 16;
+    private static final int rows = 14;
+    private static final int cols = 18;
 
     public static int getTileSize(){
         return tileSize;
