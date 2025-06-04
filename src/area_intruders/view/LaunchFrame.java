@@ -19,7 +19,10 @@ public class LaunchFrame extends JFrame {
     private JTextField nicknameField;
     private JComboBox<Difficulty> difficultyComboBox;
     private static ArrayList<CustomRadioButton> shipRadioButtons = new ArrayList<>();
+    private JSpinner numberOfRowsSpinner;
     private JSpinner enemiesInARowSpinner;
+    private JLabel enemiesVelocityLabel;
+    private JSlider enemiesVelocitySlider;
     private JLabel enemiesFallingSpeedLabel;
     private JSlider enemiesFallingSpeedSlider;
     private JCheckBox invertedMovementCheckBox;
@@ -69,6 +72,8 @@ public class LaunchFrame extends JFrame {
                 this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 this.setPreferredSize(new Dimension(getWIDTH(), 300));
                 this.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
+                SpinnerModel numberOfRowsSpinnerModel = new SpinnerNumberModel(1, 1, 9, 1);
+                SpinnerModel enemiesInARowSpinnerModel = new SpinnerNumberModel(1, 1, 9, 1);
 
                 SettingsPanel nicknamePanel = new SettingsPanel();
                     nicknamePanel.add(new JLabel("Nickname:"));
@@ -84,24 +89,39 @@ public class LaunchFrame extends JFrame {
                     difficultyPanel.add(difficultyComboBox);
                     this.add(difficultyPanel);
 
-                SettingsPanel enemiesInARowSettingPanel = new SettingsPanel();
-                    enemiesInARowSettingPanel.add(new JLabel("Enemies in a row:"));
-                    SpinnerModel model = new SpinnerNumberModel(1, 1, 9, 1);
-                    enemiesInARowSpinner = new JSpinner(model);
+                SettingsPanel RowsSettingsPanel = new SettingsPanel();
+                //NUMBER OF ROWS
+                    RowsSettingsPanel.add(new JLabel("Number of Rows:"));
+                    numberOfRowsSpinner = new JSpinner(numberOfRowsSpinnerModel);
+                    numberOfRowsSpinner.setPreferredSize(new Dimension(40, 20));
+                    RowsSettingsPanel.add(numberOfRowsSpinner);
+                //NUMBER OF ENEMIES IN A ROW
+                    RowsSettingsPanel.add(new JLabel("Enemies in a row:"));
+                    enemiesInARowSpinner = new JSpinner(enemiesInARowSpinnerModel);
                     enemiesInARowSpinner.setPreferredSize(new Dimension(40, 20));
-                    enemiesInARowSettingPanel.add(enemiesInARowSpinner);
-                    this.add(enemiesInARowSettingPanel);
+                    RowsSettingsPanel.add(enemiesInARowSpinner);
+                    this.add(RowsSettingsPanel);
 
-                SettingsPanel enemiesFallingSpeedSettingPanel = new SettingsPanel();
+                SettingsPanel enemiesSettingPanel = new SettingsPanel();
+                //ENEMIES VELOCITY
+                    enemiesVelocityLabel = new JLabel("Enemies velocity: (1)");
+                    enemiesSettingPanel.add(enemiesVelocityLabel);
+                    enemiesVelocitySlider = new JSlider(JSlider.HORIZONTAL, 1, 5, 1);
+                        enemiesVelocitySlider.setPreferredSize(new Dimension(100, 40));
+                        enemiesVelocitySlider.setMajorTickSpacing(1);
+                        enemiesVelocitySlider.setMinorTickSpacing(1);
+                        enemiesVelocitySlider.setPaintTicks(true);
+                    enemiesSettingPanel.add(enemiesVelocitySlider);
+                //ENEMIES FALLING SPEED
                     enemiesFallingSpeedLabel = new JLabel("Enemies falling speed: (3)");
-                    enemiesFallingSpeedSettingPanel.add(enemiesFallingSpeedLabel);
+                    enemiesSettingPanel.add(enemiesFallingSpeedLabel);
                     enemiesFallingSpeedSlider = new JSlider(SwingConstants.HORIZONTAL, 1 , 5 , 3);
                         enemiesFallingSpeedSlider.setPreferredSize(new Dimension(100, 40));
                         enemiesFallingSpeedSlider.setMajorTickSpacing(1);
                         enemiesFallingSpeedSlider.setMinorTickSpacing(1);
                         enemiesFallingSpeedSlider.setPaintTicks(true);
-                    enemiesFallingSpeedSettingPanel.add(enemiesFallingSpeedSlider);
-                    this.add(enemiesFallingSpeedSettingPanel);
+                    enemiesSettingPanel.add(enemiesFallingSpeedSlider);
+                    this.add(enemiesSettingPanel);
 
                 SettingsPanel invertedMovementSettingPanel = new SettingsPanel();
                     invertedMovementSettingPanel.add(new JLabel("Inverted Movement:"));
@@ -159,8 +179,14 @@ public class LaunchFrame extends JFrame {
     public ArrayList<CustomRadioButton> getShipRadioButtons() {
         return shipRadioButtons;
     }
+    public JSpinner getNumberOfRowsSpinner() {
+        return numberOfRowsSpinner;
+    }
     public JSpinner getEnemiesInARowSpinner(){
         return enemiesInARowSpinner;
+    }
+    public JSlider getEnemiesVelocitySlider(){
+        return enemiesVelocitySlider;
     }
     public JSlider getEnemiesFallingSpeedSlider() {
         return enemiesFallingSpeedSlider;
@@ -170,6 +196,9 @@ public class LaunchFrame extends JFrame {
     }
 
     //SETTERS
+    public void setEnemiesVelocityLabel(String string){
+        enemiesVelocityLabel.setText(string);
+    }
     public void setEnemiesFallingSpeedLabel(String string) {
         enemiesFallingSpeedLabel.setText(string);
     }
@@ -177,6 +206,9 @@ public class LaunchFrame extends JFrame {
     //LISTENER ADDERS
     public void addDifficultyComboBoxListener(ActionListener listener) {
         difficultyComboBox.addActionListener(listener);
+    }
+    public void addEnemiesVelocitySliderChangeListener(ChangeListener Listener) {
+        enemiesVelocitySlider.addChangeListener(Listener);
     }
     public void addEnemiesFallingSpeedSliderChangeListener(ChangeListener listener){
         enemiesFallingSpeedSlider.addChangeListener(listener);

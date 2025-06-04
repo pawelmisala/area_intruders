@@ -29,7 +29,9 @@ public class LaunchController extends UserSettings {
                             launchFrame.getNickname(),
                             launchFrame.getDifficulty(),
                             getShipIconFilePathFromLaunchFrame(),
+                            (Integer) launchFrame.getNumberOfRowsSpinner().getValue(),
                             (Integer) launchFrame.getEnemiesInARowSpinner().getValue(),
+                            launchFrame.getEnemiesVelocitySlider().getValue(),
                             launchFrame.getEnemiesFallingSpeedSlider().getValue(),
                             launchFrame.getInvertedMovementCheckBox().isSelected()
                     );
@@ -91,6 +93,14 @@ public class LaunchController extends UserSettings {
                     default:
                         break;
                 };
+            }
+        });
+
+        launchFrame.addEnemiesVelocitySliderChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                int value = launchFrame.getEnemiesVelocitySlider().getValue();
+                launchFrame.setEnemiesVelocityLabel("Enemies velocity: (" + value + ")");
             }
         });
 

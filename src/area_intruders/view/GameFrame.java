@@ -78,6 +78,7 @@ public class GameFrame extends JFrame {
             JPanel buttonPanel = new JPanel();
                 buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
                 buttonPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
+                buttonPanel.setBackground(Color.BLACK);
                 startButton = new JButton("Start");
                 startButton.setPreferredSize(new Dimension(200, 50));
                 buttonPanel.add(startButton);
@@ -110,6 +111,9 @@ public class GameFrame extends JFrame {
     }
     public GameplayPanel getGameplayPanel() {
         return gameplayPanel;
+    }
+    public ControllsPanel getControllsPanel() {
+        return controllsPanel;
     }
 
     public void addStartButtonListener(ActionListener actionListener) {
