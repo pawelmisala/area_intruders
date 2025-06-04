@@ -22,6 +22,8 @@ public class GameModel implements Runnable {
             try {
                 Thread.sleep(1000/60);//60FPS
                 gameController.repaintGameplayPanel();
+                gameController.moveEnemies();
+                gameController.moveBullets();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

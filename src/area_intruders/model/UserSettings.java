@@ -37,6 +37,9 @@ public class UserSettings {
     public static int getEnemiesInARow() {
         return enemiesInARow;
     }
+    public static int getEnemiesVelocity() {
+        return enemiesVelocity;
+    }
     public static int getEnemiesFallingSpeed() {
         return enemiesFallingSpeed;
     }

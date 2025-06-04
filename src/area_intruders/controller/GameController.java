@@ -1,9 +1,6 @@
 package area_intruders.controller;
 
-import area_intruders.model.Enemies;
-import area_intruders.model.GameModel;
-import area_intruders.model.Ship;
-import area_intruders.model.UserSettings;
+import area_intruders.model.*;
 import area_intruders.view.ControllsPanel;
 import area_intruders.view.GameFrame;
 import area_intruders.view.GameplayPanel;
@@ -20,7 +17,8 @@ public class GameController implements KeyListener {
     ControllsPanel controllsPanel;
     GameModel gameModel;
     Ship ship;
-    Enemies enemies;
+    EnemiesManager enemiesManager;
+    BulletsManager bulletsManager;
 
     public GameController(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
@@ -28,9 +26,9 @@ public class GameController implements KeyListener {
         this.controllsPanel = gameFrame.getControllsPanel();
         this.gameModel = new GameModel(this);
         this.ship = new Ship();
-
-        this.enemies = new Enemies();
-        enemies.createEnemies();
+        this.enemiesManager = new EnemiesManager();
+        this.bulletsManager = new BulletsManager();
+        enemiesManager.createEnemies();
 
         gameplayPanel.setGameController(this);
         controllsPanel.setGameController(this);
@@ -48,10 +46,10 @@ public class GameController implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (UserSettings.getInvertedMovement()){
-                    ship.moveRight();
+                    ship.moveShipRight();
                 }
                 else {
-                    ship.moveLeft();
+                    ship.moveShipLeft();
                 }
                 gameplayPanel.requestFocusInWindow();
             }
@@ -59,7 +57,7 @@ public class GameController implements KeyListener {
         controllsPanel.addShootButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                ship.shoot();
+                bulletsManager.shootBullet(ship.getShipX(), ship.getShipY(), ship.getShipWidth());
                 gameplayPanel.requestFocusInWindow();
             }
         });
@@ -67,10 +65,10 @@ public class GameController implements KeyListener {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (UserSettings.getInvertedMovement()){
-                    ship.moveLeft();
+                    ship.moveShipLeft();
                 }
                 else {
-                    ship.moveRight();
+                    ship.moveShipRight();
                 }
                 gameplayPanel.requestFocusInWindow();
             }
@@ -81,31 +79,49 @@ public class GameController implements KeyListener {
         g.drawImage(ship.getShipImage(), ship.getShipX(), ship.getShipY(), ship.getShipWidth(), ship.getShipHeight(), null);
     }
     public void drawEnemies(Graphics g) {
-        enemies.getEnemies().stream()
+        enemiesManager.getEnemies().stream()
                 .filter(enemy -> enemy.isAlive())
-                .forEach(enemy -> g.drawImage(enemies.getImage(), enemy.getEnemyX(), enemy.getEnemyY(), enemy.getEnemyWidth(), enemy.getEnemyHeight(), null));
+                .forEach(enemy -> g.drawImage(enemiesManager.getImage(), enemy.getEnemyX(), enemy.getEnemyY(), enemy.getEnemyWidth(), enemy.getEnemyHeight(), null));
+    }
+    public void drawBullet(Graphics g) {
+        g.setColor(Color.red);
+        bulletsManager.getBulletsArrayList().stream()
+                .filter(bullet -> !bullet.wasShot())
+                .forEach(bullet -> g.fillRect(bullet.getBulletX(), bullet.getBulletY(), bullet.getBulletWidth(), bullet.getBulletHeight()));
+
     }
     public void repaintGameplayPanel() {
         gameplayPanel.repaint();
+    }
+
+    public void moveEnemies(){
+        enemiesManager.getEnemies().stream()
+                .forEach(enemy -> enemy.moveEnemy());
+    }
+    public void moveBullets() {
+        bulletsManager.getBulletsArrayList().stream()
+                .forEach(bullet -> bullet.moveBullet());
+        bulletsManager.getBulletsArrayList().removeIf(bullet -> bullet.wasShot());
+        System.out.println(bulletsManager.getBulletsArrayList().size());
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_LEFT && ship.getShipX() > ship.getShipWidth()/2) {
             if (UserSettings.getInvertedMovement())
-            ship.moveRight();
+            ship.moveShipRight();
             else {
-                ship.moveLeft();
+                ship.moveShipLeft();
             }
         }
         if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            ship.shoot();
+            bulletsManager.shootBullet(ship.getShipX(), ship.getShipY(), ship.getShipWidth());
         }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && ship.getShipX() < gameFrame.getWIDTH() - ship.getShipWidth()/2) {
+        if (e.getKeyCode() == KeyEvent.VK_RIGHT && ship.getShipX() < GameBoardValues.getWidth() - ship.getShipWidth()/2) {
             if (UserSettings.getInvertedMovement())
-                ship.moveLeft();
+                ship.moveShipLeft();
             else {
-                ship.moveRight();
+                ship.moveShipRight();
             }
         }
     }

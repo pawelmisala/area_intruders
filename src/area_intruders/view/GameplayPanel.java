@@ -8,10 +8,8 @@ import java.awt.*;
 
 public class GameplayPanel extends JPanel {
     private final int tileSize = GameBoardValues.getTileSize();
-    private final int columns = GameBoardValues.getCols();
-    private final int rows = GameBoardValues.getRows();
-    private final int gameBoardWidth = columns * tileSize;
-    private final int gameBoardHeight = rows * tileSize;
+    private final int gameBoardWidth = GameBoardValues.getWidth();
+    private final int gameBoardHeight = GameBoardValues.getHeight();
     private GameController gameController;
 
     public GameplayPanel() {
@@ -25,6 +23,7 @@ public class GameplayPanel extends JPanel {
         super.paintComponent(g);
         gameController.drawShip(g);
         gameController.drawEnemies(g);
+        gameController.drawBullet(g);
     }
 
     public void setGameController(GameController gameController) {

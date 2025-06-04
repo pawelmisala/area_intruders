@@ -36,13 +36,10 @@ public class Ship {
         return shipHeight;
     }
 
-    public void moveLeft(){
+    public void moveShipLeft(){
         this.shipX = this.shipX - GameBoardValues.getTileSize();
     }
-    public void moveRight(){
+    public void moveShipRight(){
         this.shipX = this.shipX + GameBoardValues.getTileSize();
-    }
-    public void shoot(){
-        System.out.println("SHOT");
     }
 }

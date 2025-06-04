@@ -113,9 +113,9 @@ public class LaunchFrame extends JFrame {
                         enemiesVelocitySlider.setPaintTicks(true);
                     enemiesSettingPanel.add(enemiesVelocitySlider);
                 //ENEMIES FALLING SPEED
-                    enemiesFallingSpeedLabel = new JLabel("Enemies falling speed: (3)");
+                    enemiesFallingSpeedLabel = new JLabel("Enemies falling speed: (1)");
                     enemiesSettingPanel.add(enemiesFallingSpeedLabel);
-                    enemiesFallingSpeedSlider = new JSlider(SwingConstants.HORIZONTAL, 1 , 5 , 3);
+                    enemiesFallingSpeedSlider = new JSlider(SwingConstants.HORIZONTAL, 1 , 5 , 1);
                         enemiesFallingSpeedSlider.setPreferredSize(new Dimension(100, 40));
                         enemiesFallingSpeedSlider.setMajorTickSpacing(1);
                         enemiesFallingSpeedSlider.setMinorTickSpacing(1);
