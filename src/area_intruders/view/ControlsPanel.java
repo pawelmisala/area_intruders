@@ -6,11 +6,11 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
-public class ControllsPanel extends JPanel {
+public class ControlsPanel extends JPanel {
     private JButton moveLeftButton, shootButton ,moveRightButton;
     private GameController gameController;
 
-    public ControllsPanel() {
+    public ControlsPanel() {
         this.setLayout(new GridLayout(1,3,10,10));
         this.setBackground(Color.BLACK);
         moveLeftButton = new JButton("<");

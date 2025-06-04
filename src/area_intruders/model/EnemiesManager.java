@@ -28,7 +28,9 @@ public class EnemiesManager {
     public ArrayList<Enemy> getEnemies() {
         return this.enemiesArrayList;
     }
-
+    public int getEnemyCount(){
+        return this.enemyCount;
+    }
     public Image getImage() {
         return this.enemyImage;
     }

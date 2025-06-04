@@ -26,6 +26,15 @@ public class Bullet {
         }
     }
 
+//    public boolean checkColision(Enemy enemy){
+//        if (this.bulletY <= enemy.getEnemyY() + enemy.getEnemyHeight() && this.bulletX <= enemy.getEnemyX() + enemy.getEnemyWidth()/2){
+//            enemy.gotHit();
+//            this.wasShot = false;
+//            return true;
+//        }
+//        return false;
+//    }
+
     public int getBulletX() {
         return bulletX;
     }

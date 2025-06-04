@@ -47,4 +47,8 @@ public class Enemy {
     public boolean isAlive(){
         return this.isAlive;
     }
+
+    public void gotHit(){
+        this.isAlive = false;
+    }
 }

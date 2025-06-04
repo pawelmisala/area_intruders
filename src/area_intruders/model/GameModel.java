@@ -24,6 +24,7 @@ public class GameModel implements Runnable {
                 gameController.repaintGameplayPanel();
                 gameController.moveEnemies();
                 gameController.moveBullets();
+                gameController.checkCollision();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

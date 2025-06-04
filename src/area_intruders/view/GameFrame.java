@@ -18,7 +18,7 @@ public class GameFrame extends JFrame {
     private final JMenu scoreboardMenu;
     private MainPanel mainPanel;
     private GameplayPanel gameplayPanel;
-    private ControllsPanel controllsPanel;
+    private ControlsPanel controlsPanel;
     private CardLayout cardLayout;
     private JButton startButton;
     private Image frameIcon;
@@ -93,7 +93,7 @@ public class GameFrame extends JFrame {
             this.setPreferredSize(new Dimension(getWIDTH(), getHEIGHT()));
             this.setBackground(Color.BLACK);
             this.add(gameplayPanel = new GameplayPanel(), BorderLayout.CENTER);
-            this.add(controllsPanel = new ControllsPanel(), BorderLayout.SOUTH);
+            this.add(controlsPanel = new ControlsPanel(), BorderLayout.SOUTH);
         }
     }
 
@@ -112,8 +112,8 @@ public class GameFrame extends JFrame {
     public GameplayPanel getGameplayPanel() {
         return gameplayPanel;
     }
-    public ControllsPanel getControllsPanel() {
-        return controllsPanel;
+    public ControlsPanel getControllsPanel() {
+        return controlsPanel;
     }
 
     public void addStartButtonListener(ActionListener actionListener) {
