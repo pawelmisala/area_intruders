@@ -72,8 +72,8 @@ public class LaunchFrame extends JFrame {
                 this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 this.setPreferredSize(new Dimension(getWIDTH(), 300));
                 this.setBorder(BorderFactory.createEmptyBorder(50, 0, 50, 0));
-                SpinnerModel numberOfRowsSpinnerModel = new SpinnerNumberModel(1, 1, 9, 1);
-                SpinnerModel enemiesInARowSpinnerModel = new SpinnerNumberModel(1, 1, 9, 1);
+                SpinnerModel numberOfRowsSpinnerModel = new SpinnerNumberModel(1, 1, 4, 1);
+                SpinnerModel enemiesInARowSpinnerModel = new SpinnerNumberModel(3, 3, 7, 1);
 
                 SettingsPanel nicknamePanel = new SettingsPanel();
                     nicknamePanel.add(new JLabel("Nickname:"));

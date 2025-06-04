@@ -19,6 +19,7 @@ public class GameController implements KeyListener {
     Ship ship;
     EnemiesManager enemiesManager;
     BulletsManager bulletsManager;
+    int score = 0;
 
     public GameController(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
@@ -27,7 +28,6 @@ public class GameController implements KeyListener {
         this.gameModel = new GameModel(this);
         this.ship = new Ship();
         this.enemiesManager = new EnemiesManager();
-            enemiesManager.createEnemies();
         this.bulletsManager = new BulletsManager();
         gameplayPanel.setGameController(this);
         controlsPanel.setGameController(this);
@@ -75,6 +75,7 @@ public class GameController implements KeyListener {
         });
     }
 
+    //Painting
     public void drawShip(Graphics g) {
         g.drawImage(ship.getShipImage(), ship.getShipX(), ship.getShipY(), ship.getShipWidth(), ship.getShipHeight(), null);
     }
@@ -95,8 +96,12 @@ public class GameController implements KeyListener {
     }
 
     public void moveEnemies(){
+        enemiesManager.createEnemies();
         enemiesManager.getEnemies().stream()
                 .forEach(enemy -> enemy.moveEnemy());
+        enemiesManager.getEnemies().stream()
+                        .filter(enemy -> !enemy.isAlive())
+                                .forEach(enemy -> enemiesManager.decrementEnemyCount());
         enemiesManager.getEnemies().removeIf(enemy -> !enemy.isAlive());
 
     }
@@ -105,8 +110,20 @@ public class GameController implements KeyListener {
                 .forEach(bullet -> bullet.moveBullet());
         bulletsManager.getBulletsArrayList().removeIf(bullet -> bullet.wasShot());
     }
-    public void checkCollision(Bullet bullet, Enemy enemy) {
-
+    public void checkCollisions() {
+        //Enemy with a bullet
+        for (Bullet bullet : bulletsManager.getBulletsArrayList()) {
+            for (Enemy enemy : enemiesManager.getEnemies()) {
+                if(bullet.checkColisionWithEnemy(enemy)){
+                    gameplayPanel.getScoreLabel().setText("SCORE: " + ++score);
+                }
+            }
+        }
+        //Enemy with a ship
+        if(enemiesManager.getEnemies().stream().anyMatch(enemy -> enemy.checkCollisionWithShip(ship))){
+            gameModel.stop();
+            gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_OVER_PANEL");
+        }
     }
 
     //KeyListener

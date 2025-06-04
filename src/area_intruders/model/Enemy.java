@@ -9,10 +9,10 @@ public class Enemy {
     private boolean isAlive;
 
     protected Enemy(int i, int j){
-        this.enemyX = GameBoardValues.getTileSize() + GameBoardValues.getTileSize() * i;
-        this.enemyY = GameBoardValues.getTileSize() * j;
         this.enemyWidth = GameBoardValues.getTileSize() * 2;
         this.enemyHeight = GameBoardValues.getTileSize() * 2;
+        this.enemyX = (this.enemyWidth + 5) * i;
+        this.enemyY = (this.enemyHeight + 5) * j;
         this.enemyVelocity = UserSettings.getEnemiesVelocity();
         this.isAlive = true;
     }
@@ -22,13 +22,22 @@ public class Enemy {
             this.enemyX += this.enemyVelocity;
 
             //IF ENEMY TOUCHES THE BORDER
-            if (this.enemyX + this.enemyWidth == GameBoardValues.getWidth() || this.enemyX == 0) {
+            if (this.enemyX + this.enemyWidth >= GameBoardValues.getWidth() || this.enemyX <= 0) {
                 this.enemyVelocity *= -1;
-                this.enemyX += this.enemyVelocity;
-
-                this.enemyY += this.enemyHeight + (UserSettings.getEnemiesFallingSpeed() - 1) * 2;
+                this.enemyY += this.enemyHeight + (UserSettings.getEnemiesFallingSpeed() - 1) * GameBoardValues.getTileSize()/2;
             }
         }
+    }
+    public boolean checkCollisionWithShip(Ship ship){
+        if (
+                this.enemyX < ship.getShipX() + ship.getShipWidth() &&
+                this.enemyX + this.enemyWidth > ship.getShipX() &&
+                this.enemyY < ship.getShipY() + ship.getShipHeight() &&
+                this.enemyY + this.enemyHeight > ship.getShipY()
+        ) {
+            return true;
+        }
+        return false;
     }
 
     public int getEnemyX(){

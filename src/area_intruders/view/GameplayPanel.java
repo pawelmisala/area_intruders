@@ -11,12 +11,15 @@ public class GameplayPanel extends JPanel {
     private final int gameBoardWidth = GameBoardValues.getWidth();
     private final int gameBoardHeight = GameBoardValues.getHeight();
     private GameController gameController;
+    private JLabel scoreLabel;
 
     public GameplayPanel() {
         this.setPreferredSize(new Dimension(gameBoardWidth, gameBoardHeight));
         this.setBackground(Color.BLACK);
         this.setFocusable(true);
         this.requestFocusInWindow();
+        this.add(scoreLabel = new JLabel("SCORE: 0"));
+        scoreLabel.setForeground(Color.WHITE);
     }
 
     public void paintComponent(Graphics g) {
@@ -29,6 +32,10 @@ public class GameplayPanel extends JPanel {
     public void setGameController(GameController gameController) {
         this.gameController = gameController;
         this.addKeyListener(gameController);
+    }
+
+    public JLabel getScoreLabel() {
+        return scoreLabel;
     }
 }
 

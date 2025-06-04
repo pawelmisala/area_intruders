@@ -59,6 +59,7 @@ public class GameFrame extends JFrame {
             this.setLayout(cardLayout);
             this.add(new StartingScreenPanel(), "STARTING_SCREEN");
             this.add(new GamePanel(), "GAME_PANEL");
+            this.add(new GameOverPanel(), "GAME_OVER_PANEL");
             cardLayout.show(this, "STARTING_SCREEN");
         }
     }

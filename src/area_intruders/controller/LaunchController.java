@@ -49,22 +49,33 @@ public class LaunchController extends UserSettings {
                 Difficulty currentDifficulty = launchFrame.getDifficulty();
                 switch (currentDifficulty) {
                     case EASY:
+                        //NUMBER OF ROWS
+                        launchFrame.getNumberOfRowsSpinner().setValue(3);
+                        launchFrame.getNumberOfRowsSpinner().setEnabled(false);
                         //ENEMIES IN A ROW
-                        launchFrame.getEnemiesInARowSpinner().setValue(3);
+                        launchFrame.getEnemiesInARowSpinner().setValue(5);
                         launchFrame.getEnemiesInARowSpinner().setEnabled(false);
+                        //ENEMIES VELOCITY
+                        launchFrame.getEnemiesVelocitySlider().setValue(2);
+                        launchFrame.getEnemiesVelocitySlider().setEnabled(false);
                         //ENEMIES FALLING SPEED
-                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (3)");
-                        launchFrame.getEnemiesFallingSpeedSlider().setValue(3);
+                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (1)");
+                        launchFrame.getEnemiesFallingSpeedSlider().setValue(1);
                         launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
                         //INVERTED MOVEMENT
                         launchFrame.getInvertedMovementCheckBox().setSelected(false);
                         launchFrame.getInvertedMovementCheckBox().setEnabled(false);
-
                         break;
                     case MEDIUM:
+                        //NUMBER OF ROWS
+                        launchFrame.getNumberOfRowsSpinner().setValue(4);
+                        launchFrame.getNumberOfRowsSpinner().setEnabled(false);
                         //ENEMIES IN A ROW
                         launchFrame.getEnemiesInARowSpinner().setValue(5);
                         launchFrame.getEnemiesInARowSpinner().setEnabled(false);
+                        //ENEMIES VELOCITY
+                        launchFrame.getEnemiesVelocitySlider().setValue(3);
+                        launchFrame.getEnemiesVelocitySlider().setEnabled(false);
                         //ENEMIES FALLING SPEED
                         launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (2)");
                         launchFrame.getEnemiesFallingSpeedSlider().setValue(2);
@@ -74,15 +85,21 @@ public class LaunchController extends UserSettings {
                         launchFrame.getInvertedMovementCheckBox().setEnabled(false);
                         break;
                     case HARD:
+                        //NUMBER OF ROWS
+                        launchFrame.getNumberOfRowsSpinner().setValue(4);
+                        launchFrame.getNumberOfRowsSpinner().setEnabled(false);
                         //ENEMIES IN A ROW
-                        launchFrame.getEnemiesInARowSpinner().setValue(7);
+                        launchFrame.getEnemiesInARowSpinner().setValue(5);
                         launchFrame.getEnemiesInARowSpinner().setEnabled(false);
+                        //ENEMIES VELOCITY
+                        launchFrame.getEnemiesVelocitySlider().setValue(4);
+                        launchFrame.getEnemiesVelocitySlider().setEnabled(false);
                         //ENEMIES FALLING SPEED
-                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (1)");
-                        launchFrame.getEnemiesFallingSpeedSlider().setValue(1);
+                        launchFrame.setEnemiesFallingSpeedLabel("Enemies falling speed: (4)");
+                        launchFrame.getEnemiesFallingSpeedSlider().setValue(3);
                         launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
                         //INVERTED MOVEMENT
-                        launchFrame.getInvertedMovementCheckBox().setSelected(true);
+                        launchFrame.getInvertedMovementCheckBox().setSelected(false);
                         launchFrame.getInvertedMovementCheckBox().setEnabled(false);
                         break;
                     case CUSTOM:

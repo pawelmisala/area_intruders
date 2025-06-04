@@ -26,14 +26,14 @@ public class Bullet {
         }
     }
 
-//    public boolean checkColision(Enemy enemy){
-//        if (this.bulletY <= enemy.getEnemyY() + enemy.getEnemyHeight() && this.bulletX <= enemy.getEnemyX() + enemy.getEnemyWidth()/2){
-//            enemy.gotHit();
-//            this.wasShot = false;
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean checkColisionWithEnemy(Enemy enemy){
+        if (this.bulletX >= enemy.getEnemyX() && this.bulletX <= enemy.getEnemyX() + enemy.getEnemyWidth() && this.bulletY >= enemy.getEnemyY() && this.bulletY <= enemy.getEnemyY() + enemy.getEnemyHeight() ){
+            enemy.gotHit();
+            this.wasShot = true;
+            return true;
+        }
+        return false;
+    }
 
     public int getBulletX() {
         return bulletX;

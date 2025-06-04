@@ -24,7 +24,7 @@ public class GameModel implements Runnable {
                 gameController.repaintGameplayPanel();
                 gameController.moveEnemies();
                 gameController.moveBullets();
-                gameController.checkCollision();
+                gameController.checkCollisions();
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
@@ -34,6 +34,10 @@ public class GameModel implements Runnable {
     public void start() {
         gameThread.start();
         running = true;
+    }
+    public void stop() {
+        running = false;
+        gameThread.interrupt();
     }
 }
 

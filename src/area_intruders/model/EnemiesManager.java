@@ -17,12 +17,17 @@ public class EnemiesManager {
     }
 
     public void createEnemies() {
-        for (int i = 0; i < enemiesInARow; i++) {
-            for (int j = 0; j < enemyRows; j++) {
-                enemiesArrayList.add(new Enemy(i,j));
+        if (enemyCount == 0) {
+            for (int i = 0; i < enemiesInARow; i++) {
+                for (int j = 0; j < enemyRows; j++) {
+                    enemiesArrayList.add(new Enemy(i, j));
+                }
             }
+            this.enemyCount = enemiesArrayList.size();
         }
-        this.enemyCount = enemiesArrayList.size();
+    }
+    public void decrementEnemyCount(){
+        this.enemyCount -= 1;
     }
 
     public ArrayList<Enemy> getEnemies() {
