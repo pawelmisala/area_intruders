@@ -13,7 +13,7 @@ public class Enemy {
         this.enemyHeight = GameBoardValues.getTileSize() * 2;
         this.enemyX = (this.enemyWidth + 5) * i;
         this.enemyY = (this.enemyHeight + 5) * j;
-        this.enemyVelocity = UserSettings.getEnemiesVelocity();
+        this.enemyVelocity = Player.getEnemiesVelocity();
         this.isAlive = true;
     }
 
@@ -24,7 +24,7 @@ public class Enemy {
             //IF ENEMY TOUCHES THE BORDER
             if (this.enemyX + this.enemyWidth >= GameBoardValues.getWidth() || this.enemyX <= 0) {
                 this.enemyVelocity *= -1;
-                this.enemyY += this.enemyHeight + (UserSettings.getEnemiesFallingSpeed() - 1) * GameBoardValues.getTileSize()/2;
+                this.enemyY += this.enemyHeight + (Player.getEnemiesFallingSpeed() - 1) * GameBoardValues.getTileSize()/2;
             }
         }
     }

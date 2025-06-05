@@ -19,15 +19,17 @@ public class GameController implements KeyListener {
     private final Ship ship;
     private final EnemiesManager enemiesManager;
     private final BulletsManager bulletsManager;
+    private final Player player;
 
-    public GameController(GameFrame gameFrame) {
+    public GameController(GameFrame gameFrame, Player player) {
         this.gameFrame = gameFrame;
         this.gameplayPanel = gameFrame.getGameplayPanel();
         this.controlsPanel = gameFrame.getControllsPanel();
-        this.gameModel = new GameModel(this);
+        this.gameModel = new GameModel(this, player);
         this.ship = new Ship();
         this.enemiesManager = new EnemiesManager();
         this.bulletsManager = new BulletsManager();
+        this.player = player;
         gameplayPanel.setGameController(this);
         controlsPanel.setGameController(this);
 
@@ -75,7 +77,7 @@ public class GameController implements KeyListener {
         controlsPanel.addMoveLeftButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (UserSettings.getInvertedMovement()){
+                if (player.isMovementInverted()){
                     ship.moveShipRight();
                 }
                 else {
@@ -94,7 +96,7 @@ public class GameController implements KeyListener {
         controlsPanel.addMoveRightButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (UserSettings.getInvertedMovement()){
+                if (player.isMovementInverted()){
                     ship.moveShipLeft();
                 }
                 else {
@@ -188,14 +190,14 @@ public class GameController implements KeyListener {
         if (!gameModel.isPaused()) { //BLOCKING MOVEMENT WHILE GAME IS PAUSED
             switch (e.getKeyCode()) {
                 case KeyEvent.VK_LEFT:
-                    if (UserSettings.getInvertedMovement())
+                    if (player.isMovementInverted())
                         ship.moveShipRight();
                     else {
                         ship.moveShipLeft();
                     }
                     break;
                 case KeyEvent.VK_RIGHT:
-                    if (UserSettings.getInvertedMovement())
+                    if (player.isMovementInverted())
                         ship.moveShipLeft();
                     else {
                         ship.moveShipRight();

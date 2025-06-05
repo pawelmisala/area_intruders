@@ -17,7 +17,7 @@ public class Ship {
         this.shipY = GameBoardValues.getTileSize() * GameBoardValues.getRows() - GameBoardValues.getTileSize() * 2; // height-(2*tileSize)
         this.shipWidth = GameBoardValues.getTileSize() * 2;
         this.shipHeight = GameBoardValues.getTileSize() * 2;
-        this.shipImage = new ImageIcon(UserSettings.getShipIconFilePath()).getImage();
+        this.shipImage = new ImageIcon(Player.getShipIconFilePath()).getImage();
     }
 
     public Image getShipImage() {

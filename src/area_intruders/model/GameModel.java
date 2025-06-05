@@ -5,12 +5,16 @@ import area_intruders.controller.GameController;
 public class GameModel implements Runnable {
     private GameController gameController;
     private Thread gameThread;
+    private Player player;
+    private ScoreManager scoreManager;
     private boolean running = false;
     private boolean paused = false;
     private int score;
 
-    public GameModel(GameController gameController) {
+    public GameModel(GameController gameController, Player player) {
         this.gameController = gameController;
+        this.player = player;
+        this.scoreManager = new ScoreManager();
         this.score = 0;
     }
 
@@ -37,7 +41,11 @@ public class GameModel implements Runnable {
                 }
                 if (gameController.checkShipAndEnemyColision()){
                     this.stop();
+                    player.setScore(this.score);
+                    scoreManager.addScore(player);
+                    scoreManager.saveScores();
                     gameController.gameOver();
+                    this.score = 0;
                 }
 
             } catch (InterruptedException e) {
@@ -50,7 +58,7 @@ public class GameModel implements Runnable {
         gameThread = new Thread(this);
         paused = false;
         running = true;
-        score = 0;
+        player.setScore(0);
         gameThread.start();
     }
     public synchronized void pause(){

@@ -13,8 +13,8 @@ public class GameStateActionButton extends JButton {
 
     public GameStateActionButton(String text) {
         super(text);
-        this.setForeground(Color.WHITE);
-        this.setBackground(Color.BLACK);
+//        this.setForeground(Color.);
+//        this.setBackground(Color.BLACK);
         this.setFont(new Font("Label", Font.BOLD, 20));
         this.buttonWidth = 120;
         this.buttonHeight = 30;

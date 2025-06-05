@@ -1,7 +1,7 @@
 package area_intruders.controller;
 
 import area_intruders.model.Difficulty;
-import area_intruders.model.UserSettings;
+import area_intruders.model.Player;
 import area_intruders.view.customComponents.CustomRadioButton;
 import area_intruders.view.GameFrame;
 import area_intruders.view.LaunchFrame;
@@ -12,7 +12,7 @@ import javax.swing.event.ChangeListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class LaunchController extends UserSettings {
+public class LaunchController {
     private LaunchFrame launchFrame;
 
     public LaunchController(LaunchFrame launchFrame) {
@@ -25,9 +25,8 @@ public class LaunchController extends UserSettings {
                     JOptionPane.showMessageDialog(launchFrame, "Please, enter your nickname!");
                 }
                 else {
-                    UserSettings.initializeSettings(
-                            launchFrame.getNickname(),
-                            launchFrame.getDifficulty(),
+                    Player player = new Player(launchFrame.getNickname(), launchFrame.getDifficulty());
+                    Player.setPlayerSettings(
                             getShipIconFilePathFromLaunchFrame(),
                             (Integer) launchFrame.getNumberOfRowsSpinner().getValue(),
                             (Integer) launchFrame.getEnemiesInARowSpinner().getValue(),
@@ -38,7 +37,7 @@ public class LaunchController extends UserSettings {
 
                     launchFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
                     launchFrame.close();
-                    GameFrame gameFrame = new GameFrame();
+                    GameFrame gameFrame = new GameFrame(player);
                 }
             }
         });

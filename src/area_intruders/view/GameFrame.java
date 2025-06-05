@@ -1,7 +1,7 @@
 package area_intruders.view;
 
 import area_intruders.controller.GameController;
-import area_intruders.model.UserSettings;
+import area_intruders.model.Player;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -37,8 +37,8 @@ public class GameFrame extends JFrame {
         }
     }
 
-    public GameFrame() {
-        super("AREA INTRUDERS - " + UserSettings.getNickname());
+    public GameFrame(Player player) {
+        super("AREA INTRUDERS - " + player.getNickname());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
@@ -46,7 +46,7 @@ public class GameFrame extends JFrame {
         this.setIconImage(frameIcon);
         this.add(this.mainPanel = new MainPanel());
         this.setVisible(true);
-        this.gameController = new GameController(this);
+        this.gameController = new GameController(this, player);
 
         //MENUBAR
             this.menuBar = new JMenuBar();

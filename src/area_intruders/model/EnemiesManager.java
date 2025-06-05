@@ -6,8 +6,8 @@ import java.util.ArrayList;
 
 public class EnemiesManager {
     private ArrayList<Enemy> enemiesArrayList;
-    private int enemyRows = UserSettings.getNumberOfRows();
-    private int enemiesInARow = UserSettings.getEnemiesInARow();
+    private int enemyRows = Player.getNumberOfRows();
+    private int enemiesInARow = Player.getEnemiesInARow();
     private int enemyCount;
     private Image enemyImage;
 
