@@ -42,4 +42,9 @@ public class Ship {
     public void moveShipRight(){
         this.shipX = this.shipX + GameBoardValues.getTileSize();
     }
+
+    public void restartShip(){
+        this.shipX = GameBoardValues.getTileSize() * GameBoardValues.getCols() / 2 - GameBoardValues.getTileSize();
+        this.shipY = GameBoardValues.getTileSize() * GameBoardValues.getRows() - GameBoardValues.getTileSize() * 2;
+    }
 }

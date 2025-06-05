@@ -2,6 +2,7 @@ package area_intruders.view;
 
 import area_intruders.controller.LaunchController;
 import area_intruders.model.Difficulty;
+import area_intruders.view.customComponents.CustomRadioButton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;

@@ -12,14 +12,13 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class GameController implements KeyListener {
-    GameFrame gameFrame;
-    GameplayPanel gameplayPanel;
-    ControlsPanel controlsPanel;
-    GameModel gameModel;
-    Ship ship;
-    EnemiesManager enemiesManager;
-    BulletsManager bulletsManager;
-    int score = 0;
+    private final GameFrame gameFrame;
+    private final GameplayPanel gameplayPanel;
+    private final ControlsPanel controlsPanel;
+    private GameModel gameModel;
+    private final Ship ship;
+    private final EnemiesManager enemiesManager;
+    private final BulletsManager bulletsManager;
 
     public GameController(GameFrame gameFrame) {
         this.gameFrame = gameFrame;
@@ -32,12 +31,43 @@ public class GameController implements KeyListener {
         gameplayPanel.setGameController(this);
         controlsPanel.setGameController(this);
 
+        //Buttons action listeners
         gameFrame.addStartButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_PANEL");
-                gameplayPanel.requestFocusInWindow();
-                gameModel.start();
+                startNewGame();
+            }
+        });
+        gameFrame.addRestartButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                startNewGame();
+            }
+        });
+        gameFrame.addMainMenuButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "STARTING_SCREEN");
+            }
+        });
+        gameFrame.addExitButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gameFrame.dispose();
+            }
+        });
+
+        //PAUSE, RESUME Buttons listeners
+        gameplayPanel.addPauseButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pauseGame();
+            }
+        });
+        gameplayPanel.addResumeButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                resumeGame();
             }
         });
 
@@ -80,7 +110,7 @@ public class GameController implements KeyListener {
         g.drawImage(ship.getShipImage(), ship.getShipX(), ship.getShipY(), ship.getShipWidth(), ship.getShipHeight(), null);
     }
     public void drawEnemies(Graphics g) {
-        enemiesManager.getEnemies().stream()
+        enemiesManager.getEnemiesArrayList().stream()
                 .filter(enemy -> enemy.isAlive())
                 .forEach(enemy -> g.drawImage(enemiesManager.getImage(), enemy.getEnemyX(), enemy.getEnemyY(), enemy.getEnemyWidth(), enemy.getEnemyHeight(), null));
     }
@@ -95,14 +125,15 @@ public class GameController implements KeyListener {
         gameplayPanel.repaint();
     }
 
+    //Methods running in gameThread
     public void moveEnemies(){
         enemiesManager.createEnemies();
-        enemiesManager.getEnemies().stream()
+        enemiesManager.getEnemiesArrayList().stream()
                 .forEach(enemy -> enemy.moveEnemy());
-        enemiesManager.getEnemies().stream()
+        enemiesManager.getEnemiesArrayList().stream()
                         .filter(enemy -> !enemy.isAlive())
                                 .forEach(enemy -> enemiesManager.decrementEnemyCount());
-        enemiesManager.getEnemies().removeIf(enemy -> !enemy.isAlive());
+        enemiesManager.getEnemiesArrayList().removeIf(enemy -> !enemy.isAlive());
 
     }
     public void moveBullets() {
@@ -110,40 +141,76 @@ public class GameController implements KeyListener {
                 .forEach(bullet -> bullet.moveBullet());
         bulletsManager.getBulletsArrayList().removeIf(bullet -> bullet.wasShot());
     }
-    public void checkCollisions() {
-        //Enemy with a bullet
-        for (Bullet bullet : bulletsManager.getBulletsArrayList()) {
-            for (Enemy enemy : enemiesManager.getEnemies()) {
-                if(bullet.checkColisionWithEnemy(enemy)){
-                    gameplayPanel.getScoreLabel().setText("SCORE: " + ++score);
-                }
-            }
-        }
-        //Enemy with a ship
-        if(enemiesManager.getEnemies().stream().anyMatch(enemy -> enemy.checkCollisionWithShip(ship))){
-            gameModel.stop();
-            gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_OVER_PANEL");
-        }
+    public boolean checkBulletAndEnemyColision() {
+        return bulletsManager.getBulletsArrayList().stream()
+                .anyMatch(bullet -> enemiesManager.getEnemiesArrayList().stream()
+                        .anyMatch(enemy -> bullet.checkColisionWithEnemy(enemy)));
+    }
+    public boolean checkShipAndEnemyColision(){
+        return enemiesManager.getEnemiesArrayList().stream()
+                .anyMatch(enemy -> enemy.checkCollisionWithShip(ship));
+    }
+
+    //Starting new game
+    public void startNewGame(){
+        ship.restartShip(); //SETTING DEFAULT SHIP POSITION
+        enemiesManager.restartEnemies();
+        bulletsManager.restartBullets();
+        updateScoreLabel(0);
+        gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_PANEL");
+        gameplayPanel.requestFocusInWindow();
+        gameModel.start(); //STARTING NEW GAME THREAD
+    }
+
+    public void pauseGame(){
+        gameModel.pause();
+        gameplayPanel.enableGamePauseButton(false);
+        gameplayPanel.enableGameResumeButton(true);
+        gameplayPanel.requestFocusInWindow();
+    }
+    public void resumeGame(){
+        gameModel.resume();
+        gameplayPanel.enableGameResumeButton(false);
+        gameplayPanel.enableGamePauseButton(true);
+        gameplayPanel.requestFocusInWindow();
+    }
+
+    public void updateScoreLabel(int score){
+        gameplayPanel.getScoreLabel().setText("SCORE: " + score + "   ");
+    }
+    public void gameOver(){
+        gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_OVER_PANEL");
     }
 
     //KeyListener
     @Override
     public void keyPressed(KeyEvent e) {
-        if (e.getKeyCode() == KeyEvent.VK_LEFT && ship.getShipX() > ship.getShipWidth()/2) {
-            if (UserSettings.getInvertedMovement())
-            ship.moveShipRight();
-            else {
-                ship.moveShipLeft();
+        if (!gameModel.isPaused()) { //BLOCKING MOVEMENT WHILE GAME IS PAUSED
+            switch (e.getKeyCode()) {
+                case KeyEvent.VK_LEFT:
+                    if (UserSettings.getInvertedMovement())
+                        ship.moveShipRight();
+                    else {
+                        ship.moveShipLeft();
+                    }
+                    break;
+                case KeyEvent.VK_RIGHT:
+                    if (UserSettings.getInvertedMovement())
+                        ship.moveShipLeft();
+                    else {
+                        ship.moveShipRight();
+                    }
+                    break;
+                case KeyEvent.VK_SPACE:
+                    bulletsManager.shootBullet(ship.getShipX(), ship.getShipY(), ship.getShipWidth());
+                    break;
             }
         }
-        if (e.getKeyCode() == KeyEvent.VK_SPACE) {
-            bulletsManager.shootBullet(ship.getShipX(), ship.getShipY(), ship.getShipWidth());
-        }
-        if (e.getKeyCode() == KeyEvent.VK_RIGHT && ship.getShipX() < GameBoardValues.getWidth() - ship.getShipWidth()/2) {
-            if (UserSettings.getInvertedMovement())
-                ship.moveShipLeft();
-            else {
-                ship.moveShipRight();
+        if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+            if (gameModel.isPaused()) {
+                resumeGame();
+            } else {
+                pauseGame();
             }
         }
     }

@@ -1,4 +1,4 @@
-package area_intruders.view;
+package area_intruders.view.customComponents;
 
 import javax.swing.*;
 

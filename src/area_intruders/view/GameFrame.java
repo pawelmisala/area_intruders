@@ -21,6 +21,11 @@ public class GameFrame extends JFrame {
     private ControlsPanel controlsPanel;
     private CardLayout cardLayout;
     private JButton startButton;
+    private JButton exitButton;
+
+    private JButton restartButton;
+    private JButton mainMenuButton;
+
     private Image frameIcon;
     private GameController gameController;
 
@@ -76,25 +81,54 @@ public class GameFrame extends JFrame {
                 bannerPanel.add(bannerLabel);
                 this.add(bannerPanel, BorderLayout.NORTH);
 
-            JPanel buttonPanel = new JPanel();
-                buttonPanel.setAlignmentX(Component.CENTER_ALIGNMENT);
-                buttonPanel.setAlignmentY(Component.CENTER_ALIGNMENT);
-                buttonPanel.setBackground(Color.BLACK);
-                startButton = new JButton("Start");
-                startButton.setPreferredSize(new Dimension(200, 50));
-                buttonPanel.add(startButton);
+            StartingScreenButtonsPanel buttonPanel = new StartingScreenButtonsPanel();
+                JPanel startButtonPanel = new JPanel();
+                    startButtonPanel.setBackground(Color.BLACK);
+                    startButton = new JButton("Start");
+                    startButton.setPreferredSize(new Dimension(200, 50));
+                    startButtonPanel.add(startButton);
+                JPanel exitButtonPanel = new JPanel();
+                    exitButtonPanel.setBackground(Color.BLACK);
+                    exitButton = new JButton("Exit");
+                    exitButton.setPreferredSize(new Dimension(200, 50));
+                    exitButtonPanel.add(exitButton);
+                buttonPanel.add(startButtonPanel);
+                buttonPanel.add(exitButtonPanel);
                 this.add(buttonPanel, BorderLayout.CENTER);
-
         }
     }
 
     private class GamePanel extends JPanel {
         public GamePanel() {
-//            this.setLayout(new BorderLayout());
             this.setPreferredSize(new Dimension(getWIDTH(), getHEIGHT()));
             this.setBackground(Color.BLACK);
             this.add(gameplayPanel = new GameplayPanel(), BorderLayout.CENTER);
             this.add(controlsPanel = new ControlsPanel(), BorderLayout.SOUTH);
+        }
+    }
+
+    private class GameOverPanel extends JPanel {
+        private GameController gameController;
+
+        public GameOverPanel() {
+            this.setLayout(new BorderLayout());
+            this.setBackground(Color.BLACK);
+
+            //North
+            JLabel gameOverLabel = new JLabel(new ImageIcon("resources/game_over.png"));
+            this.add(gameOverLabel, BorderLayout.NORTH);
+
+            //Center
+            JPanel buttonPanel = new JPanel();
+                buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
+                buttonPanel.setBackground(Color.BLACK);
+                    restartButton = new JButton("Restart");
+                    mainMenuButton = new JButton("Main Menu");
+                    restartButton.setPreferredSize(new Dimension(150, 50));
+                    mainMenuButton.setPreferredSize(new Dimension(150, 50));
+                buttonPanel.add(restartButton);
+                buttonPanel.add(mainMenuButton);
+                this.add(buttonPanel, BorderLayout.CENTER);
         }
     }
 
@@ -119,6 +153,15 @@ public class GameFrame extends JFrame {
 
     public void addStartButtonListener(ActionListener actionListener) {
         startButton.addActionListener(actionListener);
+    }
+    public void addExitButtonListener(ActionListener actionListener) {
+        exitButton.addActionListener(actionListener);
+    }
+    public void addRestartButtonListener(ActionListener actionListener) {
+        restartButton.addActionListener(actionListener);
+    }
+    public void addMainMenuButtonListener(ActionListener actionListener) {
+        mainMenuButton.addActionListener(actionListener);
     }
 
 }

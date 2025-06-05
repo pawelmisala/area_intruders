@@ -30,7 +30,7 @@ public class EnemiesManager {
         this.enemyCount -= 1;
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public ArrayList<Enemy> getEnemiesArrayList() {
         return this.enemiesArrayList;
     }
     public int getEnemyCount(){
@@ -38,5 +38,10 @@ public class EnemiesManager {
     }
     public Image getImage() {
         return this.enemyImage;
+    }
+
+    public void restartEnemies() {
+        enemiesArrayList.clear();
+        enemyCount = 0;
     }
 }

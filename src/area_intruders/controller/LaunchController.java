@@ -2,7 +2,7 @@ package area_intruders.controller;
 
 import area_intruders.model.Difficulty;
 import area_intruders.model.UserSettings;
-import area_intruders.view.CustomRadioButton;
+import area_intruders.view.customComponents.CustomRadioButton;
 import area_intruders.view.GameFrame;
 import area_intruders.view.LaunchFrame;
 
@@ -99,7 +99,7 @@ public class LaunchController extends UserSettings {
                         launchFrame.getEnemiesFallingSpeedSlider().setValue(3);
                         launchFrame.getEnemiesFallingSpeedSlider().setEnabled(false);
                         //INVERTED MOVEMENT
-                        launchFrame.getInvertedMovementCheckBox().setSelected(false);
+                        launchFrame.getInvertedMovementCheckBox().setSelected(true);
                         launchFrame.getInvertedMovementCheckBox().setEnabled(false);
                         break;
                     case CUSTOM:

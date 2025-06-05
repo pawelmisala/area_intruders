@@ -19,13 +19,10 @@ public class ControlsPanel extends JPanel {
         add(moveLeftButton);
         add(shootButton);
         add(moveRightButton);
-        this.setBackground(Color.WHITE);
+        this.setBackground(Color.BLACK);
         this.setPreferredSize(new Dimension(512,100));
     }
 
-    public void setGameController(GameController gameController) {
-        this.gameController = gameController;
-    }
     public void addMoveLeftButtonListener(ActionListener actionListener) {
         moveLeftButton.addActionListener(actionListener);
     }
@@ -34,5 +31,9 @@ public class ControlsPanel extends JPanel {
     }
     public void addMoveRightButtonListener(ActionListener actionListener) {
         moveRightButton.addActionListener(actionListener);
+    }
+
+    public void setGameController(GameController gameController) {
+        this.gameController = gameController;
     }
 }

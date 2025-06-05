@@ -1,5 +1,7 @@
 package area_intruders.view;
 
+import area_intruders.view.customComponents.CustomRadioButton;
+
 import javax.swing.*;
 import java.awt.*;
 
