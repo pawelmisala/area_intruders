@@ -10,7 +10,7 @@ public class BulletsManager {
     }
 
     public void shootBullet(int shipX, int shipY, int shipWidth) {
-        if (bulletsArrayList.size() < 2){ //SHOOTING DELAY
+        if (bulletsArrayList.isEmpty()) { //ALLOWING TO SHOOT ONE BULLET AT A TIME
             Bullet bullet = new Bullet(shipX, shipY, shipWidth);
             bulletsArrayList.add(bullet);
         }

@@ -102,7 +102,9 @@ public class LaunchController {
                         launchFrame.getInvertedMovementCheckBox().setEnabled(false);
                         break;
                     case CUSTOM:
+                        launchFrame.getNumberOfRowsSpinner().setEnabled(true);
                         launchFrame.getEnemiesInARowSpinner().setEnabled(true);
+                        launchFrame.getEnemiesVelocitySlider().setEnabled(true);
                         launchFrame.getEnemiesFallingSpeedSlider().setEnabled(true);
                         launchFrame.getInvertedMovementCheckBox().setEnabled(true);
 

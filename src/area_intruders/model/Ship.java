@@ -37,10 +37,14 @@ public class Ship {
     }
 
     public void moveShipLeft(){
-        this.shipX = this.shipX - GameBoardValues.getTileSize();
+        if (this.shipX > 0){
+            this.shipX -= GameBoardValues.getTileSize();
+        }
     }
     public void moveShipRight(){
-        this.shipX = this.shipX + GameBoardValues.getTileSize();
+        if (this.shipX + this.shipWidth < GameBoardValues.getWidth()){
+            this.shipX += GameBoardValues.getTileSize();
+        }
     }
 
     public void restartShip(){

@@ -16,7 +16,7 @@ public class ScoreLabel extends JLabel {
         this.scoreLabelWidth = super.getPreferredSize().width + 50;
         this.scoreLabelHeight = super.getPreferredSize().height;
         this.setPreferredSize(new Dimension(scoreLabelWidth, scoreLabelHeight));
-        this.scoreLabelX = scoreLabelWidth/2 + - 20;
+        this.scoreLabelX = 10;
         this.scoreLabelY = 0;
         this.setBounds(scoreLabelX, scoreLabelY, scoreLabelWidth, scoreLabelHeight);
     }

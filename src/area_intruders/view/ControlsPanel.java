@@ -1,6 +1,7 @@
 package area_intruders.view;
 
 import area_intruders.controller.GameController;
+import area_intruders.model.GameBoardValues;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +12,7 @@ public class ControlsPanel extends JPanel {
     private GameController gameController;
 
     public ControlsPanel() {
-        this.setLayout(new GridLayout(1,3,10,10));
+        this.setLayout(new GridLayout(1,3));
         this.setBackground(Color.BLACK);
         moveLeftButton = new JButton("<");
         shootButton = new JButton("SHOOT");
@@ -20,7 +21,7 @@ public class ControlsPanel extends JPanel {
         add(shootButton);
         add(moveRightButton);
         this.setBackground(Color.BLACK);
-        this.setPreferredSize(new Dimension(512,100));
+        this.setPreferredSize(new Dimension(GameBoardValues.getWidth(),100));
     }
 
     public void addMoveLeftButtonListener(ActionListener actionListener) {

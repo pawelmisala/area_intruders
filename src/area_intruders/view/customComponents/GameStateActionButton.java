@@ -18,7 +18,7 @@ public class GameStateActionButton extends JButton {
         this.setFont(new Font("Label", Font.BOLD, 20));
         this.buttonWidth = 120;
         this.buttonHeight = 30;
-        this.buttonX = GameBoardValues.getWidth() - this.buttonWidth - this.buttonWidth/3 - 5;
+        this.buttonX = GameBoardValues.getWidth() - this.buttonWidth;
         this.buttonY = 0;
         this.setPreferredSize(new Dimension(buttonWidth, buttonHeight));
         this.setBounds(this.buttonX, this.buttonY, this.buttonWidth, this.buttonHeight);

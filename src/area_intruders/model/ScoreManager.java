@@ -5,29 +5,23 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class ScoreManager {
-    private final String filePath = "src/area_intruders/top10.txt";
-    private ArrayList<Player> top10ArrayList;
+    private final String filePath = "src/area_intruders/scores.txt";
+    private ArrayList<Player> scoresArrayList;
 
     protected ScoreManager() {
-        top10ArrayList = new ArrayList<>();
+        scoresArrayList = new ArrayList<>();
         loadScores();
     }
 
     protected void addScore(Player player) {
-        top10ArrayList.add(player);
-        Collections.sort(top10ArrayList);
-        if (top10ArrayList.size() > 10) {
-            top10ArrayList.remove(top10ArrayList.size()-1);
-        }
-        if (top10ArrayList.contains(player)) {
-            System.out.println("GRACZ WBIL SIE DO TOP 10");
-        }
+        scoresArrayList.add(player);
+        Collections.sort(scoresArrayList);
     }
 
     protected void saveScores() {
         try {
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
-            for (Player player : top10ArrayList) {
+            for (Player player : scoresArrayList) {
                 writer.write(player.toString());
                 writer.newLine();
             }
@@ -42,7 +36,7 @@ public class ScoreManager {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
             String line;
             while ((line = reader.readLine()) != null) {
-                top10ArrayList.add(Player.readPlayerFromString(line));
+                scoresArrayList.add(Player.readPlayerFromString(line));
             }
         } catch (IOException e) {
             System.err.println("Error occured while loading scores file");

@@ -143,7 +143,7 @@ public class GameController implements KeyListener {
                 .forEach(bullet -> bullet.moveBullet());
         bulletsManager.getBulletsArrayList().removeIf(bullet -> bullet.wasShot());
     }
-    public boolean checkBulletAndEnemyColision() {
+    public synchronized boolean checkBulletAndEnemyColision() {
         return bulletsManager.getBulletsArrayList().stream()
                 .anyMatch(bullet -> enemiesManager.getEnemiesArrayList().stream()
                         .anyMatch(enemy -> bullet.checkColisionWithEnemy(enemy)));

@@ -1,6 +1,7 @@
 package area_intruders.view;
 
 import area_intruders.controller.GameController;
+import area_intruders.model.GameBoardValues;
 import area_intruders.model.Player;
 
 import javax.imageio.ImageIO;
@@ -11,8 +12,8 @@ import java.io.File;
 import java.io.IOException;
 
 public class GameFrame extends JFrame {
-    private final int WIDTH = 512;
-    private final int HEIGHT = 612;
+    private final int WIDTH = GameBoardValues.getWidth();
+    private final int HEIGHT = (GameBoardValues.getHeight() + 180);
     private final JMenuBar menuBar;
     private final JMenu helpMenu;
     private final JMenu scoreboardMenu;
