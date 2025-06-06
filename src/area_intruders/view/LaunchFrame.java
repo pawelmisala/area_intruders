@@ -15,7 +15,7 @@ import java.util.ArrayList;
 
 public class LaunchFrame extends JFrame {
     private final ImageIcon banner = new ImageIcon("resources/banner.png");
-    private final int WIDTH = 800;
+    private final int WIDTH = 600;
     private final int HEIGHT = 600;
     private JTextField nicknameField;
     private JComboBox<Difficulty> difficultyComboBox;

@@ -1,11 +1,9 @@
 package area_intruders.controller;
 
 import area_intruders.model.*;
-import area_intruders.view.ControlsPanel;
-import area_intruders.view.GameFrame;
-import area_intruders.view.GameplayPanel;
-import area_intruders.view.PlayerInfoPanel;
+import area_intruders.view.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -37,6 +35,23 @@ public class GameController implements KeyListener {
         controlsPanel.setGameController(this);
         playerInfoPanel.setGameController(this);
 
+        //Menu action listeners
+        gameFrame.addTop10ScoresMenuItemListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Top10ScoresFrame();
+            }
+        });
+
+
+        gameFrame.addHowToPlayMenuItemListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
         //Buttons action listeners
         gameFrame.addStartButtonListener(new ActionListener() {
             @Override
@@ -44,6 +59,22 @@ public class GameController implements KeyListener {
                 startNewGame();
             }
         });
+        gameFrame.addTop10ScoresButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new Top10ScoresFrame();
+            }
+        });
+
+
+        gameFrame.addHowToPlayButtonListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+
         gameFrame.addRestartButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -81,7 +112,7 @@ public class GameController implements KeyListener {
         controlsPanel.addMoveLeftButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (player.isMovementInverted()){
+                if (Player.isMovementInverted()){
                     ship.moveShipRight();
                 }
                 else {
@@ -100,7 +131,7 @@ public class GameController implements KeyListener {
         controlsPanel.addMoveRightButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (player.isMovementInverted()){
+                if (Player.isMovementInverted()){
                     ship.moveShipLeft();
                 }
                 else {
@@ -231,8 +262,4 @@ public class GameController implements KeyListener {
     public void keyTyped(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
-
-    public Player getPlayer() {
-        return player;
-    }
 }

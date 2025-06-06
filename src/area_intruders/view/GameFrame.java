@@ -15,14 +15,16 @@ public class GameFrame extends JFrame {
     private final int WIDTH = GameBoardValues.getWidth();
     private final int HEIGHT = (GameBoardValues.getHeight() + 180);
     private final JMenuBar menuBar;
-    private final JMenu helpMenu;
-    private final JMenu scoreboardMenu;
+    private JMenuItem top10scoresMenuItem;
+    private JMenuItem howToPlayMenuItem;
     private MainPanel mainPanel;
     private GameplayPanel gameplayPanel;
     private ControlsPanel controlsPanel;
     private PlayerInfoPanel playerInfoPanel;
     private CardLayout cardLayout;
     private JButton startButton;
+    private JButton top10scoresButton;
+    private JButton howToPlayButton;
     private JButton exitButton;
     private JButton restartButton;
     private JButton mainMenuButton;
@@ -38,7 +40,7 @@ public class GameFrame extends JFrame {
     }
 
     public GameFrame(Player player) {
-        super("AREA INTRUDERS - " + player.getNickname());
+        super("AREA INTRUDERS | " + player.getNickname().toUpperCase());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize(WIDTH, HEIGHT);
         this.setLocationRelativeTo(null);
@@ -46,15 +48,18 @@ public class GameFrame extends JFrame {
         this.setIconImage(frameIcon);
         this.add(this.mainPanel = new MainPanel());
         this.setVisible(true);
-        this.gameController = new GameController(this, player);
-
         //MENUBAR
-            this.menuBar = new JMenuBar();
-            this.helpMenu = new JMenu("Help");
-            this.scoreboardMenu = new JMenu("Scoreboard");
-            menuBar.add(helpMenu);
-            menuBar.add(scoreboardMenu);
-            this.setJMenuBar(menuBar);
+        JMenu gameMenu = new JMenu("Game");
+        this.menuBar = new JMenuBar();
+        this.menuBar.add(gameMenu);
+        this.top10scoresMenuItem = new JMenuItem("TOP 10 scores");;
+        this.howToPlayMenuItem = new JMenuItem("How to play");
+            gameMenu.add(top10scoresMenuItem);
+            gameMenu.add(howToPlayMenuItem);
+        this.setJMenuBar(menuBar);
+
+        //GAME CONTROLLER
+        this.gameController = new GameController(this, player);
     }
 
     private class MainPanel extends JPanel {
@@ -84,15 +89,31 @@ public class GameFrame extends JFrame {
             StartingScreenButtonsPanel buttonPanel = new StartingScreenButtonsPanel();
                 JPanel startButtonPanel = new JPanel();
                     startButtonPanel.setBackground(Color.BLACK);
-                    startButton = new JButton("Start");
+                    startButton = new JButton("START");
                     startButton.setPreferredSize(new Dimension(200, 50));
                     startButtonPanel.add(startButton);
+
+                JPanel top10scoresPanel = new JPanel();
+                    top10scoresPanel.setBackground(Color.BLACK);
+                    top10scoresButton = new JButton("TOP 10 SCORES");
+                    top10scoresButton.setPreferredSize(new Dimension(200, 50));
+                    top10scoresPanel.add(top10scoresButton);
+
+                JPanel howToPlayPanel = new JPanel();
+                    howToPlayPanel.setBackground(Color.BLACK);
+                    howToPlayButton = new JButton("HOW TO PLAY");
+                    howToPlayButton.setPreferredSize(new Dimension(200, 50));
+                    howToPlayPanel.add(howToPlayButton);
+
                 JPanel exitButtonPanel = new JPanel();
                     exitButtonPanel.setBackground(Color.BLACK);
-                    exitButton = new JButton("Exit");
+                    exitButton = new JButton("EXIT");
                     exitButton.setPreferredSize(new Dimension(200, 50));
                     exitButtonPanel.add(exitButton);
+
                 buttonPanel.add(startButtonPanel);
+                buttonPanel.add(top10scoresPanel);
+                buttonPanel.add(howToPlayPanel);
                 buttonPanel.add(exitButtonPanel);
                 this.add(buttonPanel, BorderLayout.CENTER);
         }
@@ -157,8 +178,21 @@ public class GameFrame extends JFrame {
         return playerInfoPanel;
     }
 
+    public void addTop10ScoresMenuItemListener(ActionListener actionListener) {
+        top10scoresMenuItem.addActionListener(actionListener);
+    }
+    public void addHowToPlayMenuItemListener(ActionListener actionListener) {
+        howToPlayMenuItem.addActionListener(actionListener);
+    }
+
     public void addStartButtonListener(ActionListener actionListener) {
         startButton.addActionListener(actionListener);
+    }
+    public void addTop10ScoresButtonListener(ActionListener actionListener) {
+        top10scoresButton.addActionListener(actionListener);
+    }
+    public void addHowToPlayButtonListener(ActionListener actionListener) {
+        howToPlayMenuItem.addActionListener(actionListener);
     }
     public void addExitButtonListener(ActionListener actionListener) {
         exitButton.addActionListener(actionListener);

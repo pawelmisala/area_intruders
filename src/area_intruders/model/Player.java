@@ -80,10 +80,9 @@ public class Player implements Comparable<Player> {
 
     @Override
     public int compareTo(Player p) {
-        int result = p.getScore() - this.getScore();
-
+        int result = p.getDifficulty().compareTo(this.getDifficulty());
         if (result == 0) {
-            result = p.getDifficulty().compareTo(this.getDifficulty());
+            result = p.getScore() - this.getScore();
         }
         return result;
     }

@@ -1,2 +1,0 @@
-majsal:33:MEDIUM
-test:13:HARD

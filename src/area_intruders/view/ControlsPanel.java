@@ -21,7 +21,7 @@ public class ControlsPanel extends JPanel {
         add(shootButton);
         add(moveRightButton);
         this.setBackground(Color.BLACK);
-        this.setPreferredSize(new Dimension(GameBoardValues.getWidth(),100));
+        this.setPreferredSize(new Dimension(GameBoardValues.getWidth(),110));
     }
 
     public void addMoveLeftButtonListener(ActionListener actionListener) {
