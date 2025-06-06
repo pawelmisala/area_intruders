@@ -44,7 +44,7 @@ public class GameModel implements Runnable {
                     player.setScore(this.score);
                     scoreManager.addScore(player);
                     scoreManager.saveScores();
-                    gameController.gameOver();
+                    gameController.gameOver(scoreManager.isInTop10(player), scoreManager.getTop10Placement(player));
                     this.score = 0;
                 }
 

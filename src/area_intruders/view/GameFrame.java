@@ -20,13 +20,12 @@ public class GameFrame extends JFrame {
     private MainPanel mainPanel;
     private GameplayPanel gameplayPanel;
     private ControlsPanel controlsPanel;
+    private PlayerInfoPanel playerInfoPanel;
     private CardLayout cardLayout;
     private JButton startButton;
     private JButton exitButton;
-
     private JButton restartButton;
     private JButton mainMenuButton;
-
     private Image frameIcon;
     private GameController gameController;
 
@@ -120,16 +119,19 @@ public class GameFrame extends JFrame {
             this.add(gameOverLabel, BorderLayout.NORTH);
 
             //Center
+            this.add(playerInfoPanel = new PlayerInfoPanel(), BorderLayout.CENTER);
+
+             //South
             JPanel buttonPanel = new JPanel();
                 buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                 buttonPanel.setBackground(Color.BLACK);
                     restartButton = new JButton("Restart");
                     mainMenuButton = new JButton("Main Menu");
-                    restartButton.setPreferredSize(new Dimension(150, 50));
-                    mainMenuButton.setPreferredSize(new Dimension(150, 50));
+                    restartButton.setPreferredSize(new Dimension(200, 50));
+                    mainMenuButton.setPreferredSize(new Dimension(200, 50));
                 buttonPanel.add(restartButton);
                 buttonPanel.add(mainMenuButton);
-                this.add(buttonPanel, BorderLayout.CENTER);
+                this.add(buttonPanel, BorderLayout.SOUTH);
         }
     }
 
@@ -150,6 +152,9 @@ public class GameFrame extends JFrame {
     }
     public ControlsPanel getControllsPanel() {
         return controlsPanel;
+    }
+    public PlayerInfoPanel getPlayerInfoPanel() {
+        return playerInfoPanel;
     }
 
     public void addStartButtonListener(ActionListener actionListener) {

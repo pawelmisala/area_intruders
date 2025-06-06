@@ -4,6 +4,7 @@ import area_intruders.model.*;
 import area_intruders.view.ControlsPanel;
 import area_intruders.view.GameFrame;
 import area_intruders.view.GameplayPanel;
+import area_intruders.view.PlayerInfoPanel;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,6 +16,7 @@ public class GameController implements KeyListener {
     private final GameFrame gameFrame;
     private final GameplayPanel gameplayPanel;
     private final ControlsPanel controlsPanel;
+    private final PlayerInfoPanel playerInfoPanel;
     private GameModel gameModel;
     private final Ship ship;
     private final EnemiesManager enemiesManager;
@@ -25,6 +27,7 @@ public class GameController implements KeyListener {
         this.gameFrame = gameFrame;
         this.gameplayPanel = gameFrame.getGameplayPanel();
         this.controlsPanel = gameFrame.getControllsPanel();
+        this.playerInfoPanel = gameFrame.getPlayerInfoPanel();
         this.gameModel = new GameModel(this, player);
         this.ship = new Ship();
         this.enemiesManager = new EnemiesManager();
@@ -32,6 +35,7 @@ public class GameController implements KeyListener {
         this.player = player;
         gameplayPanel.setGameController(this);
         controlsPanel.setGameController(this);
+        playerInfoPanel.setGameController(this);
 
         //Buttons action listeners
         gameFrame.addStartButtonListener(new ActionListener() {
@@ -180,7 +184,14 @@ public class GameController implements KeyListener {
     public void updateScoreLabel(int score){
         gameplayPanel.getScoreLabel().setText("SCORE: " + score + "   ");
     }
-    public void gameOver(){
+    public void gameOver(boolean isInTop10, int top10index){
+        playerInfoPanel.getNicknameLabel().setText(player.getNickname());
+        playerInfoPanel.getScoreLabel().setText("SCORE: " + player.getScore());
+        if (isInTop10){
+            System.out.println(isInTop10);
+            playerInfoPanel.getCongratulationsPanel().setVisible(true);
+            playerInfoPanel.getCongratulationsLabel().setText("CONGRATULATIONS! Your score puts you in top " + top10index);
+       }
         gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_OVER_PANEL");
     }
 
@@ -220,4 +231,8 @@ public class GameController implements KeyListener {
     public void keyTyped(KeyEvent e) {}
     @Override
     public void keyReleased(KeyEvent e) {}
+
+    public Player getPlayer() {
+        return player;
+    }
 }
