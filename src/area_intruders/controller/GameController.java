@@ -43,15 +43,6 @@ public class GameController implements KeyListener {
             }
         });
 
-
-        gameFrame.addHowToPlayMenuItemListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-
-            }
-        });
-
-
         //Buttons action listeners
         gameFrame.addStartButtonListener(new ActionListener() {
             @Override
@@ -70,10 +61,9 @@ public class GameController implements KeyListener {
         gameFrame.addHowToPlayButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                gameFrame.changeCardLayoutPanel("HOW_TO_PLAY");
             }
         });
-
 
         gameFrame.addRestartButtonListener(new ActionListener() {
             @Override
@@ -84,7 +74,7 @@ public class GameController implements KeyListener {
         gameFrame.addMainMenuButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "STARTING_SCREEN");
+                gameFrame.changeCardLayoutPanel("STARTING_SCREEN");
             }
         });
         gameFrame.addExitButtonListener(new ActionListener() {
@@ -194,7 +184,7 @@ public class GameController implements KeyListener {
         enemiesManager.restartEnemies();
         bulletsManager.restartBullets();
         updateScoreLabel(0);
-        gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_PANEL");
+        gameFrame.changeCardLayoutPanel("GAME_PANEL");
         gameplayPanel.requestFocusInWindow();
         gameModel.start(); //STARTING NEW GAME THREAD
     }
@@ -219,11 +209,10 @@ public class GameController implements KeyListener {
         playerInfoPanel.getNicknameLabel().setText(player.getNickname());
         playerInfoPanel.getScoreLabel().setText("SCORE: " + player.getScore());
         if (isInTop10){
-            System.out.println(isInTop10);
             playerInfoPanel.getCongratulationsPanel().setVisible(true);
             playerInfoPanel.getCongratulationsLabel().setText("CONGRATULATIONS! Your score puts you in top " + top10index);
        }
-        gameFrame.getCardLayout().show(gameFrame.getMainPanel(), "GAME_OVER_PANEL");
+        gameFrame.changeCardLayoutPanel("GAME_OVER_PANEL");
     }
 
     //KeyListener

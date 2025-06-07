@@ -14,9 +14,8 @@ import java.io.IOException;
 public class GameFrame extends JFrame {
     private final int WIDTH = GameBoardValues.getWidth();
     private final int HEIGHT = (GameBoardValues.getHeight() + 180);
-    private final JMenuBar menuBar;
+    private JMenuBar menuBar;
     private JMenuItem top10scoresMenuItem;
-    private JMenuItem howToPlayMenuItem;
     private MainPanel mainPanel;
     private GameplayPanel gameplayPanel;
     private ControlsPanel controlsPanel;
@@ -27,7 +26,8 @@ public class GameFrame extends JFrame {
     private JButton howToPlayButton;
     private JButton exitButton;
     private JButton restartButton;
-    private JButton mainMenuButton;
+    private JButton gameOverPanelMainMenuButton;
+    private JButton howToPlayPanelMainMenuButton = new JButton("Main Menu");
     private Image frameIcon;
     private GameController gameController;
 
@@ -46,16 +46,16 @@ public class GameFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setResizable(false);
         this.setIconImage(frameIcon);
-        this.add(this.mainPanel = new MainPanel());
+        this.add(this.mainPanel = new MainPanel(this));
         this.setVisible(true);
-        //MENUBAR
+        this.setVisible(true);
+
+        //MENU BAR
+        menuBar = new JMenuBar();
         JMenu gameMenu = new JMenu("Game");
-        this.menuBar = new JMenuBar();
         this.menuBar.add(gameMenu);
         this.top10scoresMenuItem = new JMenuItem("TOP 10 scores");;
-        this.howToPlayMenuItem = new JMenuItem("How to play");
             gameMenu.add(top10scoresMenuItem);
-            gameMenu.add(howToPlayMenuItem);
         this.setJMenuBar(menuBar);
 
         //GAME CONTROLLER
@@ -63,11 +63,11 @@ public class GameFrame extends JFrame {
     }
 
     private class MainPanel extends JPanel {
-
-        public MainPanel() {
+        public MainPanel(GameFrame gameFrame) {
             cardLayout = new CardLayout();
             this.setLayout(cardLayout);
             this.add(new StartingScreenPanel(), "STARTING_SCREEN");
+                this.add(new HowToPlayPanel(gameFrame), "HOW_TO_PLAY");
             this.add(new GamePanel(), "GAME_PANEL");
             this.add(new GameOverPanel(), "GAME_OVER_PANEL");
             cardLayout.show(this, "STARTING_SCREEN");
@@ -129,8 +129,6 @@ public class GameFrame extends JFrame {
     }
 
     private class GameOverPanel extends JPanel {
-        private GameController gameController;
-
         public GameOverPanel() {
             this.setLayout(new BorderLayout());
             this.setBackground(Color.BLACK);
@@ -147,12 +145,21 @@ public class GameFrame extends JFrame {
                 buttonPanel.setLayout(new FlowLayout(FlowLayout.CENTER));
                 buttonPanel.setBackground(Color.BLACK);
                     restartButton = new JButton("Restart");
-                    mainMenuButton = new JButton("Main Menu");
+                    gameOverPanelMainMenuButton = new JButton("Main Menu");
                     restartButton.setPreferredSize(new Dimension(200, 50));
-                    mainMenuButton.setPreferredSize(new Dimension(200, 50));
+                    gameOverPanelMainMenuButton.setPreferredSize(new Dimension(200, 50));
                 buttonPanel.add(restartButton);
-                buttonPanel.add(mainMenuButton);
+                buttonPanel.add(gameOverPanelMainMenuButton);
+                buttonPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 30, 10));
                 this.add(buttonPanel, BorderLayout.SOUTH);
+        }
+    }
+
+
+    private static class StartingScreenButtonsPanel extends JPanel {
+        public StartingScreenButtonsPanel() {
+            this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+            this.setBackground(Color.BLACK);
         }
     }
 
@@ -162,12 +169,12 @@ public class GameFrame extends JFrame {
     public int getHEIGHT(){
         return HEIGHT;
     }
-    public MainPanel getMainPanel() {
-        return mainPanel;
+    public JButton getHowToPlayPanelMainMenuButton(){
+        howToPlayPanelMainMenuButton = new JButton("Main Menu");
+        howToPlayPanelMainMenuButton.setPreferredSize(new Dimension(200, 50));
+        return howToPlayPanelMainMenuButton;
     }
-    public CardLayout getCardLayout() {
-        return cardLayout;
-    }
+
     public GameplayPanel getGameplayPanel() {
         return gameplayPanel;
     }
@@ -181,9 +188,6 @@ public class GameFrame extends JFrame {
     public void addTop10ScoresMenuItemListener(ActionListener actionListener) {
         top10scoresMenuItem.addActionListener(actionListener);
     }
-    public void addHowToPlayMenuItemListener(ActionListener actionListener) {
-        howToPlayMenuItem.addActionListener(actionListener);
-    }
 
     public void addStartButtonListener(ActionListener actionListener) {
         startButton.addActionListener(actionListener);
@@ -192,7 +196,7 @@ public class GameFrame extends JFrame {
         top10scoresButton.addActionListener(actionListener);
     }
     public void addHowToPlayButtonListener(ActionListener actionListener) {
-        howToPlayMenuItem.addActionListener(actionListener);
+        howToPlayButton.addActionListener(actionListener);
     }
     public void addExitButtonListener(ActionListener actionListener) {
         exitButton.addActionListener(actionListener);
@@ -201,7 +205,11 @@ public class GameFrame extends JFrame {
         restartButton.addActionListener(actionListener);
     }
     public void addMainMenuButtonListener(ActionListener actionListener) {
-        mainMenuButton.addActionListener(actionListener);
+        gameOverPanelMainMenuButton.addActionListener(actionListener);
+        howToPlayPanelMainMenuButton.addActionListener(actionListener);
     }
 
+    public void changeCardLayoutPanel(String panelName){
+        cardLayout.show(mainPanel, panelName);
+    }
 }
