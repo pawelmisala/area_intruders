@@ -1,12 +1,1 @@
-majsal:27:HARD
-xd:19:HARD
-test:19:HARD
-asdasdasd:19:HARD
-test:8:HARD
-test:0:HARD
-test:108:MEDIUM
-test:29:MEDIUM
-scyzoryk:19:MEDIUM
-majsal:19:MEDIUM
-scyzoryk:19:MEDIUM
-xd:9:CUSTOM
+test:28:EASY

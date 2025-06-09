@@ -99,13 +99,14 @@ public class GameController implements KeyListener {
         controlsPanel.addMoveLeftButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Player.isMovementInverted()){
-                    ship.moveShipRight();
+                if (!gameModel.isPaused()) {
+                    if (Player.isMovementInverted()) {
+                        ship.moveShipRight();
+                    } else {
+                        ship.moveShipLeft();
+                    }
+                    gameplayPanel.requestFocusInWindow();
                 }
-                else {
-                    ship.moveShipLeft();
-                }
-                gameplayPanel.requestFocusInWindow();
             }
         });
         controlsPanel.addShootButtonListener(new ActionListener() {
@@ -118,13 +119,14 @@ public class GameController implements KeyListener {
         controlsPanel.addMoveRightButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (Player.isMovementInverted()){
-                    ship.moveShipLeft();
+                if (!gameModel.isPaused()) {
+                    if (Player.isMovementInverted()) {
+                        ship.moveShipLeft();
+                    } else {
+                        ship.moveShipRight();
+                    }
+                    gameplayPanel.requestFocusInWindow();
                 }
-                else {
-                    ship.moveShipRight();
-                }
-                gameplayPanel.requestFocusInWindow();
             }
         });
     }
