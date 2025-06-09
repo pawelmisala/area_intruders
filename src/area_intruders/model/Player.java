@@ -18,13 +18,11 @@ public class Player implements Comparable<Player> {
         this.difficulty = difficulty;
     }
 
-
     protected Player(String nickname, int score, Difficulty difficulty) {
         this.nickname = nickname;
         this.score = score;
         this.difficulty = difficulty;
     }
-
 
     public static void setPlayerSettings(String iconPath, int nOfRows, int eInARow, int eVelocity, int eFallingSpeed, boolean invMovement) {
         shipIconFilePath = iconPath;

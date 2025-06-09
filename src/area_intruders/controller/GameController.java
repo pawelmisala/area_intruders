@@ -56,15 +56,12 @@ public class GameController implements KeyListener {
                 new Top10ScoresFrame();
             }
         });
-
-
         gameFrame.addHowToPlayButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gameFrame.changeCardLayoutPanel("HOW_TO_PLAY");
             }
         });
-
         gameFrame.addRestartButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -98,7 +95,7 @@ public class GameController implements KeyListener {
             }
         });
 
-        //Control buttons listeners
+        //Ship movement buttons listeners
         controlsPanel.addMoveLeftButtonListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -132,7 +129,7 @@ public class GameController implements KeyListener {
         });
     }
 
-    //Painting
+    //Painting components
     public void drawShip(Graphics g) {
         g.drawImage(ship.getShipImage(), ship.getShipX(), ship.getShipY(), ship.getShipWidth(), ship.getShipHeight(), null);
     }
