@@ -105,8 +105,8 @@ public class GameController implements KeyListener {
                     } else {
                         ship.moveShipLeft();
                     }
-                    gameplayPanel.requestFocusInWindow();
                 }
+                gameplayPanel.requestFocusInWindow();
             }
         });
         controlsPanel.addShootButtonListener(new ActionListener() {
@@ -125,8 +125,8 @@ public class GameController implements KeyListener {
                     } else {
                         ship.moveShipRight();
                     }
-                    gameplayPanel.requestFocusInWindow();
                 }
+                gameplayPanel.requestFocusInWindow();
             }
         });
     }

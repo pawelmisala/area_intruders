@@ -45,7 +45,7 @@ public class ScoreManager {
 
     protected void saveScores() {
         try {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
+            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true));
             clearFile(filePath);
             for (Player player : scoresArrayList) {
                 writer.write(player.toString());

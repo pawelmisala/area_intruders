@@ -1,1 +1,6 @@
+test2:18:HARD
+top2:10:HARD
+majsal:39:MEDIUM
 test:28:EASY
+test:23:EASY
+test:23:EASY
